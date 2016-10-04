@@ -1,0 +1,20 @@
+{
+  "presets": [
+    "es2015",
+    "react",
+    "node5",
+    "stage-0"
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "rewire"
+      ]
+    }
+  },
+  "plugins": [
+    "jsx-control-statements",
+    "react-require",
+    "transform-decorators-legacy"
+  ]
+}
