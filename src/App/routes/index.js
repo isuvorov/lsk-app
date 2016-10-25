@@ -29,15 +29,19 @@ export default {
     {
       path: '/',
       action() {
-        return onStore((props, context) => {
-          const user = props.user
-          const history = context.history
-          if (user.isAuth) {
-            history.push('/cabinet')
-          } else {
-            history.push('/auth/login')
-          }
-        })
+        return {
+          title: 'HomePage',
+          component: <HomePage />,
+        }
+        // return onStore((props, context) => {
+        //   const user = props.user
+        //   const history = context.history
+        //   if (user.isAuth) {
+        //     history.push('/cabinet')
+        //   } else {
+        //     history.push('/auth/login')
+        //   }
+        // })
       },
     },
     {

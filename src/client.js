@@ -1,7 +1,7 @@
-import polyfill from 'lego-starter-kit/utils/polyfill'
+import ready from 'lego-starter-kit/utils/polyfill'
 import App from './App'
 import config from './config/index.client'
-polyfill()
+ready()
 const ctx = { config }
 const app = new App(ctx)
 app.run().then(() => {
