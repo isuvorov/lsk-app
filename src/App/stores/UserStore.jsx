@@ -48,9 +48,9 @@ class UserStore extends ProtoStore {
 
   @autobind
   fromJSON(data) {
-    this._id = data.user._id
-    this.username = data.user.username
-    this.email = data.user.email
+    this._id = data.user && data.user._id
+    this.username = data.user && data.user.username
+    this.email = data.user && data.user.email
     this.token = data.token
   }
 

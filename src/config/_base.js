@@ -6,26 +6,13 @@ const config = {
   port : process.env.PORT || 8080,
   protocol: 'https',
   mail: {
-    transport: {
-      host: 'smtp.yandex.ru',
-      port: 465,
-      secure: true,
-      auth: {
-        user: 'dev@mgbeta.ru',
-        pass: '1CJbEagFlLBHYNBVrL4h',
-      },
-    },
-    options: {
-      from: '"Dev Mgbeta" <dev@mgbeta.ru>',
-    },
   },
   db: {
-    uri: 'mongodb://s3.mgbeta.ru:10098/lsk-app',
+    uri: 'mongodb://publicdb.mgbeta.ru/lsk-app',
     options: {},
   },
   jwt: {
     secret: 'qweqweqwe12312312',
-    devToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1NzU1NjU0YWYxZjJmODA1N2JhM2U3NWUiLCJ1c2VybmFtZSI6ImFkbWluIiwibmFtZSI6IkFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNDY1MjU2Mzc2fQ._eEmsRtL_FuFOwVAtDf5GYio2YSvJwFB0lkSEMxkkbQ',
   }
 }
   // env : process.env.NODE_ENV || process.env.ENV || 'development',

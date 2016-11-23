@@ -13,7 +13,7 @@
     "babel-plugin-react-require": "^2.1.0",
     "core-decorators": "^0.12.3",
     "importcss": "^1.0.0",
-    "lego-starter-kit": "^0.17.1",
+    "lego-starter-kit": "^1.0.0",
     "lodash": "^4.13.1",
     "react": "15.1.0",
     "react-bootstrap": "^0.29.5",

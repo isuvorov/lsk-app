@@ -1,5 +1,5 @@
 
-export function ErrorPage({ error }, context) {
+export function ErrorPage({ error, children }, context) {
   let title = 'Error';
   let content = 'Sorry, a critical error occurred on this page.';
   let errorMessage = null;
@@ -17,6 +17,7 @@ export function ErrorPage({ error }, context) {
       <h1>{title}</h1>
       <p>{content}</p>
       {errorMessage}
+      {children}
     </div>
   );
 }
