@@ -1,5 +1,4 @@
 import ready from 'lego-starter-kit/utils/polyfill'
-import logger from 'lego-starter-kit/utils/logger'
 import App from './App'
 import config from './config'
 ready()

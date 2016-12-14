@@ -1,14 +1,9 @@
-import MobxApp from 'lego-starter-kit/MobxApp'
+import ReactApp from 'lego-starter-kit/ReactApp'
 import routes from './routes';
-import AppState from './AppState'
 
-export default class BdoApp extends MobxApp {
+export default class App extends ReactApp {
   getUniversalRoutes() {
     return routes
-  }
-
-  getAppState(initialState) {
-    return new AppState(initialState);
   }
 
 }

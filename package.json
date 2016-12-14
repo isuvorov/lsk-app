@@ -1,6 +1,6 @@
 {
   "name": "lsk-app",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "author": "isuvorov",
   "license": "MIT",
   "private": true,
@@ -13,12 +13,12 @@
     "babel-plugin-react-require": "^2.1.0",
     "core-decorators": "^0.12.3",
     "importcss": "^1.0.0",
-    "lego-starter-kit": "^1.0.0",
+    "lego-starter-kit": "^1.1.0",
     "lodash": "^4.13.1",
+    "lsk-general": "^0.2.0",
     "react": "15.1.0",
     "react-bootstrap": "^0.29.5",
-    "react-icons": "^2.2.1",
-    "lsk-general": "^0.2.0"
+    "react-icons": "^2.2.1"
   },
   "devDependencies": {
     "@kadira/storybook": "^1.38.0",
@@ -68,7 +68,7 @@
     "deploy": "babel-node tools/run deploy",
     "render": "babel-node tools/run render",
     "start": "node build/server.js",
-    "dev": "babel-node tools/run start | node_modules/lego-starter-kit/bunyan -o short -l trace",
+    "dev": "babel-node tools/run start  | ./node_modules/lego-starter-kit/src/utils/bunyan -o short -l trace",
     "storybook": "start-storybook -p 9001"
   }
 }

@@ -1,5 +1,5 @@
-import ApiClientSuper from 'lego-starter-kit/CoreApp/api/api.client'
+import ApiClientBase from 'lego-starter-kit/CoreApp/api/api.client'
 
-export default class ApiClient extends ApiClientSuper {
+export default class ApiClient extends ApiClientBase {
 
 }

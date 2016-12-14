@@ -42,7 +42,6 @@ export default {
       }
     }
     if (!route) route = {}
-    console.log('route', route);
     route.title = `${route.title || 'Untitled Page'} - ${config.siteTitle}`;
     route.description = route.description || config.siteTitle;
     route.component = <Layout>

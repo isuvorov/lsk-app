@@ -1,11 +1,10 @@
-import MobxApp from 'lego-starter-kit/MobxApp'
+import ReactApp from 'lego-starter-kit/ReactApp'
 import getApi from './api'
 import getDocs from './api/api.docs'
 import routes from './routes'
 import assets from './assets'; // eslint-disable-line import/no-unresolved
-import AppState from './AppState'
 
-export default class BdoApp extends MobxApp {
+export default class App extends ReactApp {
 
   useRoutes() {
     this.app.all('/api', (req, res) => {
@@ -19,24 +18,12 @@ export default class BdoApp extends MobxApp {
     this.useStaticPublic(__dirname + '/public')
   }
 
-  useWebSockets() {
-
-  }
-
-  renderHtml(...args) {
-    return require('./renderHtml').default(...args)
-  }
-
   getUniversalRoutes() {
     return routes
   }
 
   getAssets() {
     return assets.main
-  }
-
-  getAppState(initialState) {
-    return new AppState(initialState)
   }
 
 }
