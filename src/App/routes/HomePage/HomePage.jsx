@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Slide from 'lsk-general/General/Slide'
 import Slides from 'lsk-general/General/Slides'
 import Page from 'lsk-general/General/Page'
-const ReactDriveIn = require("react-drive-in");
+
 
 import importcss from 'importcss'
 @importcss(require('./HomePage.css'))
