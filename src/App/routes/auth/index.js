@@ -1,4 +1,4 @@
-
+ import AuthPage from './AuthPage'
 export default {
   // path: '/',
   children: [
@@ -7,7 +7,7 @@ export default {
       action() {
         return {
           title: 'Cabinet',
-          component: <div>Cabinet</div>,
+          component: <AuthPage />,
         }
       },
     },

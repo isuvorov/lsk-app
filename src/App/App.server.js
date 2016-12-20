@@ -15,15 +15,29 @@ export default class App extends ReactApp {
       path: '/api/v1',
     }))
     this.app.use('/api/v1', getApi(this))
-    this.useStaticPublic(__dirname + '/public')
   }
 
-  getUniversalRoutes() {
-    return routes
+  getStatics() {
+    return {
+      ...super.getStatics(),
+      ...{
+        '/': __dirname + '/../src/public',
+      },
+    }
   }
 
   getAssets() {
     return assets.main
   }
+
+
+
+  static Html = require('./Html').default
+  Provider = require('./stores/AppStore').default
+
+  getUniversalRoutes() {
+    return routes
+  }
+
 
 }
