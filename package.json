@@ -16,9 +16,12 @@
     "lodash": "^4.13.1",
     "lsk-general": "0.3.2",
     "react": "15.4.1",
-    "react-dom": "15.4.1",
+    "react-addons-css-transition-group": "^15.4.1",
+    "react-addons-transition-group": "^15.4.1",
     "react-bootstrap": "^0.29.5",
-    "react-icons": "^2.2.1"
+    "react-dom": "15.4.1",
+    "react-icons": "^2.2.1",
+    "reactstrap": "^3.9.5"
   },
   "devDependencies": {
     "@kadira/storybook": "^1.38.0",
@@ -68,7 +71,7 @@
     "deploy": "babel-node tools/run deploy",
     "render": "babel-node tools/run render",
     "start": "node build/server.js",
-    "dev": "babel-node tools/run start  | ./node_modules/lego-starter-kit/src/utils/bunyan -o short -l trace",
+    "dev": "babel-node tools/run start  | node node_modules/lego-starter-kit/src/utils/bunyan -o short -l trace",
     "storybook": "start-storybook -p 9001"
   }
 }
