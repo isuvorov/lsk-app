@@ -1,125 +1,194 @@
-import { PropTypes, Component } from 'react'
-import { inject, observer } from 'mobx-react'
+import React, { Component } from 'react'
+import importcss from 'importcss'
 import { autobind } from 'core-decorators'
+import sample from 'lodash/sample'
 import {
+  Container,
+  Row,
+  Col,
+  Card,
+  CardBlock,
+  CardFooter,
+  CardTitle,
+  CardText,
+  Button,
   Form,
   FormGroup,
-  FormControl,
-  Button,
-  ControlLabel,
+  ButtonGroup,
+  FormFeedback,
+  Label,
+  Input,
   InputGroup,
-  HelpBlock
-} from 'react-bootstrap'
-import A from 'lsk-general/blocks/General/A'
+  InputGroupAddon,
+} from 'reactstrap'
+import Email from 'react-icons/lib/fa/envelope'
+import Lock from 'react-icons/lib/fa/lock'
+import VKontakte from 'react-icons/lib/fa/vk'
+import Odnoklassniki from 'react-icons/lib/fa/odnoklassniki'
+import Facebook from 'react-icons/lib/fa/facebook'
+import Twitter from 'react-icons/lib/fa/twitter'
+import Twitch from 'react-icons/lib/fa/twitch'
+import Tumblr from 'react-icons/lib/fa/tumblr'
+import Instagram from 'react-icons/lib/fa/instagram'
+import Loading from 'react-icons/lib/md/refresh'
+import Error from 'react-icons/lib/md/clear'
+import Check from 'react-icons/lib/md/check'
 import Slide from 'lsk-general/General/Slide'
+import Link from 'lego-starter-kit/ReactApp/components/Link'
 
-
-// @inject("user")
-// @observer
+@importcss(require('./AuthPage.css'))
 export default class LoginPage extends Component {
-  static contextTypes = {
-    history: PropTypes.object.isRequired,
-  };
-
   constructor() {
     super()
-    this.state = {}
+    this.state = {
+      email: '',
+      validEmail: 'none',
+      password: '',
+      validPassword: 'none',
+      status: 'none',
+    }
+  }
+
+  @autobind
+  handleChangeField(field) {
+    return (e) => {
+      this.setState({
+        [field]: e.target.value,
+        [`valid${field.capitalize()}`]: this.validate(field),
+      })
+    }
+  }
+
+  @autobind
+  validate(type) {
+    const rgxEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    const e = this.state[type]
+    if (e.length === 0) {
+      return 'none'
+    } else if (type === 'email' ? rgxEmail.test(e) : e.length > 6) {
+      return 'success'
+    }
+    return 'danger'
   }
 
   @autobind
   handleSubmit(e) {
     e.preventDefault();
-    if (!this.validate()) return;
-    this.setState({
-      status: 'wait',
-    })
-    this.props.user.login(this.getData())
-    .then(() => {
-      this.setState({
-        status: 'ok',
-      })
-      this.context.history.push('/cabinet')
-    })
-    .catch(() => {
-      this.setState({
-        status: 'error',
-      })
-    })
+    this.setState({ status: 'wait' })
+    setTimeout(() => {
+      this.setState({ status: sample(['ok', 'error']) })
+    }, 2000)
+    setTimeout(() => {
+      this.setState({ status: 'none' })
+    }, 3500)
   }
   render() {
-
-    return <Slide
-        full
-        left='left'
-        right='right'
-        top='top'
-        bottom='bottom'
-
-        color='#ff644b'
-        center
-        style={{color: '#fff'}}
-      >
-        Content
-      </Slide>
+    const { email, password, status } = this.state
     return (
-      <div>
-        <div wrap title='Войти'>
-          <form onSubmit={this.handleSubmit}>
-            <FormGroup
-              controlId="formBasicText"
-              // validationState='success'
-            >
-              <InputGroup>
-                <InputGroup.Addon>
-                  {/* <Icons.email /> */}
-                </InputGroup.Addon>
-                <FormControl
-                  type="text"
-                  placeholder="Email"
-                  value={this.state.login || ''}
-                  // onChange={this.handleChangeField('login')}
-                />
-              </InputGroup>
-              <FormControl.Feedback />
-              {/* <HelpBlock>Validation is based on string length.</HelpBlock> */}
-            </FormGroup>
-            <FormGroup
-              controlId="formBasicText"
-              // validationState='success'
-            >
-              <InputGroup>
-                <InputGroup.Addon>
-                  {/* <Icons.lock /> */}
-                </InputGroup.Addon>
-                <FormControl
-                  type="text"
-                  placeholder="Пароль"
-                  type='password'
-                  value={this.state.password || ''}
-                  // onChange={this.handleChangeField('password')}
-                />
-                {/* <HelpBlocsk>Validation is based on string length.</HelpBlock> */}
-              </InputGroup>
-              <FormControl.Feedback />
-              {/* <HelpBlock>Validation is based on string length.</HelpBlock> */}
-            </FormGroup>
-
-            <Button bsStyle='primary' block type='submit'>
-              <If condition={this.state.status === 'wait'}>
-                {/* <Icons.loading /> */}
-              </If>
-              Войти
-            </Button>
-          </form>
-          <br />
-          <p className='text-center'>
-            <A href='/auth/recovery' bsStyle='secondary'>
-               Забыли пароль?
-            </A>
-          </p>
-        </div>
-        <br />
-      </div>
-    );
+      <Slide full video='http://skill-branch.ru/video-background.webm'>
+        <Container>
+          <Row>
+            <Col md='5' style={{ margin: 'auto' }}>
+              <Card>
+                <CardBlock>
+                  <CardTitle>Вход</CardTitle>
+                  <Form onSubmit={this.handleSubmit}>
+                    <FormGroup color={this.validate('email')}>
+                      <Label for='emailInput'>Электронная почта</Label>
+                      <InputGroup>
+                        <InputGroupAddon><Email /></InputGroupAddon>
+                        <Input
+                          id='emailInput'
+                          type='email'
+                          placeholder='Электронная почта'
+                          state={this.validate('email')}
+                          onChange={this.handleChangeField('email')}
+                          value={email || ''}
+                        />
+                      </InputGroup>
+                      <If condition={this.validate('email') === 'danger'}>
+                        <FormFeedback>Введён не корректный адрес почты</FormFeedback>
+                      </If>
+                    </FormGroup>
+                    <FormGroup color={this.validate('password')}>
+                      <Label for='passwordInput'>Пароль</Label>
+                      <InputGroup>
+                        <InputGroupAddon><Lock /></InputGroupAddon>
+                        <Input
+                          id='passwordInput'
+                          type='password'
+                          placeholder='Пароль'
+                          state={this.validate('password')}
+                          onChange={this.handleChangeField('password')}
+                          value={password || ''}
+                        />
+                      </InputGroup>
+                      <If condition={this.validate('password') === 'danger'}>
+                        <FormFeedback>Пароль должен быть больше 6 символов</FormFeedback>
+                      </If>
+                      <Button
+                        styleName='recovery-password'
+                        color='link'
+                        href='/auth/recovery'
+                        tag={Link}
+                      >
+                        Забыли пароль?
+                      </Button>
+                    </FormGroup>
+                    <Button
+                      size='lg'
+                      color='primary'
+                      disabled={
+                        status !== 'none'
+                        || this.validate('email') === 'none'
+                        || this.validate('password') === 'none'
+                      }
+                    >
+                      <If condition={status === 'none'}>
+                        Войти
+                      </If>
+                      <If condition={status === 'wait'}>
+                        <div styleName='button-icon-status spin'><Loading /></div>
+                      </If>
+                      <If condition={status === 'ok'}>
+                        <div styleName='button-icon-status'><Check /></div>
+                      </If>
+                      <If condition={status === 'error'}>
+                        <div styleName='button-icon-status'><Error /></div>
+                      </If>
+                    </Button>
+                  </Form>
+                </CardBlock>
+                <CardFooter className='text-xs-center'>
+                  <ButtonGroup>
+                    <Button styleName='btn-social is-vkontakte'><VKontakte /></Button>
+                    <Button styleName='btn-social is-odnoklassniki'><Odnoklassniki /></Button>
+                    <Button styleName='btn-social is-facebook'><Facebook /></Button>
+                    <Button styleName='btn-social is-twitter'><Twitter /></Button>
+                    <Button styleName='btn-social is-twitch'><Twitch /></Button>
+                    <Button styleName='btn-social is-tumblr'><Tumblr /></Button>
+                    <Button styleName='btn-social is-instagram'><Instagram /></Button>
+                  </ButtonGroup>
+                </CardFooter>
+              </Card>
+              <Card>
+                <CardBlock className='text-xs-center'>
+                  <CardText>Если у вас нет аккаунта,<br />вы можете зарегистрироваться.</CardText>
+                  <Button
+                    color='success'
+                    href='/signup'
+                    tag={Link}
+                    outline
+                    block
+                  >
+                    Зарегистрироваться
+                  </Button>
+                </CardBlock>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </Slide>
+    )
   }
 }

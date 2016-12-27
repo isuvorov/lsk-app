@@ -7,3 +7,7 @@ const app = new App(ctx)
 app.run().then(() => {
   console.log(`🎃  The client is running [${global.timing()}ms]`)
 })
+
+String.prototype.capitalize = function() {
+    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+};
