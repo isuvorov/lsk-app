@@ -3,7 +3,7 @@ import Slide from 'lsk-general/General/Slide'
 import Slides from 'lsk-general/General/Slides'
 import Page from 'lsk-general/General/Page'
 
-
+require('./some.global.css')
 import importcss from 'importcss'
 @importcss(require('./HomePage.css'))
 export default class HomePage extends Component {
@@ -12,9 +12,7 @@ export default class HomePage extends Component {
       <Slides>
         <Slide
           full
-          // image='https://pp.vk.me/c636819/v636819936/346c3/6xIvJ0BI8rs.jpg'
-          // video='https://youtu.be/C8PYHjRj-zk'
-          // video='https://www.youtube.com/embed/C8PYHjRj-zk'
+          fixed
           video='http://skill-branch.ru/video-background.webm'
         >
           <h1>

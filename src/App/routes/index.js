@@ -1,6 +1,5 @@
 import HomePage from './HomePage'
 import ErrorPage from './ErrorPage'
-import Layout from '../components/Layout'
 import config from '../../config/index.client'
 
 export default {
@@ -10,7 +9,7 @@ export default {
       path: '/',
       action() {
         return {
-          title: 'HomePage',
+          title: 'HomePage123',
           component: <HomePage />,
         }
       },
@@ -44,9 +43,6 @@ export default {
     if (!route) route = {}
     route.title = `${route.title || 'Untitled Page'} - ${config.siteTitle}`;
     route.description = route.description || config.siteTitle;
-    route.component = <Layout>
-      {route.component}
-    </Layout>
     return route;
   },
 };

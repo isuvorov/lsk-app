@@ -1,0 +1,39 @@
+
+.logo {
+  margin: 0 auto;
+  display: block;
+
+}
+
+.form {
+  width: 350px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.socials {
+  display: flex;
+}
+
+.social-wrap {
+  flex: 1;
+  text-align: center;
+}
+.social {
+  display:inline-block;
+  background: rgba(#000000, 0.5);
+  color: white;
+  padding: 20px;
+  font-size: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+}
+
+.links {
+  display: flex;
+  padding: 10px;
+}
+.link {
+  flex: 1;
+  text-align: center;
+}

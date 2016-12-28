@@ -1,5 +1,4 @@
 import ReactApp from 'lego-starter-kit/ReactApp'
-import routes from './routes';
 
 export default class App extends ReactApp {
 
@@ -7,7 +6,15 @@ export default class App extends ReactApp {
   Provider = require('./stores/AppStore').default
 
   getUniversalRoutes() {
-    return routes
+    return require('./routes').default
+  }
+
+  hmrInit() {
+    if (module.hot) {
+      module.hot.accept('./routes', () => {
+        this.hmrUpdate()
+      });
+    }
   }
 
 }
