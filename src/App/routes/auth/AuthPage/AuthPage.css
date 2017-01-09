@@ -1,39 +1,67 @@
+$twitch: #6441a4;
+$vkontakte: #507299;
+$odnoklassniki: #ee8208;
+$tumblr: #36465d;
+$twitter: #41abe0;
+$instagram: #262626;
+$facebook: #4867aa;
 
-.logo {
-  margin: 0 auto;
-  display: block;
-
+:global .input-group-addon svg {
+    display: flex;
 }
 
-.form {
-  width: 350px;
-  margin: 0 auto;
-  text-align: left;
+.recovery-password {
+  float: right;
+  font-size: .85em;
+  padding: 5px 0;
 }
 
-.socials {
+.button-icon-status {
+  width: 54px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3em;
+  animation-name: flipInX;
+  animation-duration: .5s;
+}
+.button-icon-status svg {
+  display: flex;
+}
+.button-icon-status.spin svg {
+  animation:spin .8s linear infinite;
+}
+.btn-social,
+.btn-social svg {
   display: flex;
 }
 
-.social-wrap {
-  flex: 1;
-  text-align: center;
-}
-.social {
-  display:inline-block;
-  background: rgba(#000000, 0.5);
-  color: white;
-  padding: 20px;
-  font-size: 30px;
-  line-height: 30px;
-  border-radius: 50%;
+.btn-social {
+  padding: .7rem .9rem;
+  font-size: 1.2rem;
 }
 
-.links {
-  display: flex;
-  padding: 10px;
+@define-mixin socialButtons $network {
+  .btn-social.is-$(network) {
+    background-color: transparent;
+    border: none;
+    transition: .2s ease-in-out;
+  }
+  .btn-social.is-$(network):hover {
+    background-color: $($network);
+    border: none;
+    color: white;
+    z-index: inherit;
+  }
 }
-.link {
-  flex: 1;
-  text-align: center;
-}
+
+@mixin socialButtons twitch {}
+@mixin socialButtons twitter {}
+@mixin socialButtons odnoklassniki {}
+@mixin socialButtons vkontakte {}
+@mixin socialButtons tumblr {}
+@mixin socialButtons instagram {}
+@mixin socialButtons facebook {}
+
+@keyframes spin { 100% { transform:rotate(360deg); } }

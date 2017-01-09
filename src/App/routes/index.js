@@ -1,4 +1,4 @@
-import HomePage from './HomePage'
+// import HomePage from './HomeWWS'
 import ErrorPage from './ErrorPage'
 import config from '../../config/index.client'
 
@@ -7,21 +7,24 @@ export default {
   children: [
     {
       path: '/',
-      action() {
-        return {
-          title: 'HomePage123',
-          component: <HomePage />,
-        }
-      },
+      ...require('./home').default,
     },
+    {
+      path: '/game',
+      ...require('./game').default,
+    },
+    // {
+    //   path: '/notes',
+    //   ...require('./notes').default,
+    // },
     {
       path: '/auth',
       ...require('./auth').default,
     },
-    {
-      path: '/cabinet',
-      ...require('./cabinet').default,
-    },
+    // {
+    //   path: '/cabinet',
+    //   ...require('./cabinet').default,
+    // },
     {
       path: '*',
       action() {

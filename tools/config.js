@@ -17,6 +17,11 @@ const ctx = {
       path: fs.realpathSync(dirname + '/node_modules/lsk-general/src'),
       alias: 'lsk-general',
     },
+    {
+      name: 'lsk-quiz',
+      path: fs.realpathSync(dirname + '/node_modules/lsk-quiz/src'),
+      alias: 'lsk-quiz',
+    },
   ],
   alias: {
     react: fs.realpathSync(dirname + '/node_modules/react'),

@@ -8,12 +8,13 @@ const config = {
   mail: {
   },
   db: {
-    uri: 'mongodb://publicdb.mgbeta.ru/lsk-app',
+    uri: 'mongodb://localhost:10008/momentum',
     options: {},
   },
   jwt: {
-    secret: 'qweqweqwe12312312',
+    secret: 'momentum123',
   }
+
 }
   // env : process.env.NODE_ENV || process.env.ENV || 'development',
 config.globals = {
