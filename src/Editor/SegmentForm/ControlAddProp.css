@@ -1,0 +1,23 @@
+.root {
+	display: flex;
+	flex-direction: row;
+}
+
+.key {
+	border-radius: 4px 0 0 4px !important;
+	border-right: none !important;
+}
+.value, .type {
+	border-radius: 0 !important;
+	border-right: none !important;
+}
+.type{
+  height: 34px;
+}
+.button {
+	border-radius: 0 4px 4px 0 !important;
+}
+ /*.root :global .form-control {
+ 	border: 1px solid #ccc !important;
+ 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075) !important;
+ }*/

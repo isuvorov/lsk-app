@@ -1,0 +1,56 @@
+.obj-content {
+	background-color: white;
+	padding: 20px;
+}
+:global .panel-controls {
+	margin-left: auto;
+}
+:global .panel-heading {
+	padding: 8px 15px !important;
+}
+:global .panel-body {
+    padding: 10px !important;
+		:global .form-control {
+			border: none !important;
+			box-shadow: none !important;
+		}
+}
+:global .obj-creator {
+	div {
+			display: flex;
+			flex-direction: row;
+			:global .creator-key {
+				border-radius: 4px 0 0 4px !important;
+				border-right: none !important;
+			}
+			:global .creator-value,
+			:global .creator-type {
+				border-radius: 0 !important;
+				border-right: none !important;
+			}
+			:global .creator-add {
+				border-radius: 0 4px 4px 0 !important;
+			}
+	}
+	:global .form-control {
+		border: 1px solid #ccc !important;
+		box-shadow: inset 0 1px 1px rgba(0,0,0,.075) !important;
+	}
+}
+:global .btn-group {
+	float: right;
+	margin-left: auto;
+}
+:global .panel-title {
+	display: flex;
+	align-items: center;
+	a {
+		width: 100%;
+    display: flex;
+    align-items: center;
+	}
+}
+
+:global .panel-group {
+	margin-bottom: 10px !important;
+}

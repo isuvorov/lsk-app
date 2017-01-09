@@ -8,6 +8,7 @@
   "plugins": [
     "jsx-control-statements",
     "react-require",
-    "transform-decorators-legacy"
+    "transform-decorators-legacy",
+    "transform-runtime"
   ]
 }

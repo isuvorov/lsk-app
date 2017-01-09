@@ -1,0 +1,17 @@
+.title {
+  font-size: 14pt;
+  margin-right: 10px;
+}
+.controlEdit {
+  float: right;
+}
+.heading {
+  margin: 0px;
+}
+
+/*.panel_type_object{
+  background: white !important;
+}
+.panel_type_array{
+  background: #ffe0d6 !important;
+}*/
