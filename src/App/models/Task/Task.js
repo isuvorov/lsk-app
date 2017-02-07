@@ -1,7 +1,6 @@
-import UniversalSchema from 'lego-starter-kit/utils/UniversalSchema'
+import UniversalSchema from 'lego-starter-kit/utils/UniversalSchema'; // eslint-disable-line
 
-
-export function getSchema(ctx) {
+export function getSchema(ctx) { // eslint-disable-line
   // const mongoose = ctx.db;
   const schema = new UniversalSchema({
     platform: {
@@ -19,13 +18,15 @@ export function getSchema(ctx) {
     title: {
       type: String,
     },
-  })
+  }, {
+    strict: false,
+  });
 
-  return schema
+  return schema;
 }
 
 
 export default (ctx) => {
   const schema = getSchema(ctx);
-  return ctx.db.model('Task', schema.getMongooseSchema(), 'task')
-}
+  return ctx.db.model('Task', schema.getMongooseSchema(), 'task');
+};

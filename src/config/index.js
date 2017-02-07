@@ -1,28 +1,16 @@
-import fs from 'fs'
-import _debug from 'debug'
-import config from './_base'
+import config from 'lego-starter-kit/utils/config';
+import baseConfig from 'lego-starter-kit/config';
 
-const debug = _debug('app:config')
-debug('Create configuration.')
-debug(`Apply environment overrides for NODE_ENV "${config.env}".`)
+export default config.server(baseConfig, {
+  client: require('./client').default, // eslint-disable-line
 
-// Check if the file exists before attempting to require it, this
-// way we can provide better error reporting that overrides
-// weren't applied simply because the file didn't exist.
-const overridesFilename = `_${config.env}`
-let hasOverridesFile
-try {
-  fs.lstatSync(`${__dirname}/${overridesFilename}.js`)
-  hasOverridesFile = true
-} catch (e) {}
+  env: process.env.NODE_ENV || process.env.ENV || 'development',
+  port: process.env.PORT || 8080,
 
-// Overrides file exists, so we can attempt to require it.
-// We intentionally don't wrap this in a try/catch as we want
-// the Node process to exit if an error occurs.
-let overrides
-if (hasOverridesFile) {
-  overrides = require(`./${overridesFilename}`).default(config)
-} else {
-  debug(`No configuration overrides found for NODE_ENV "${config.env}"`)
-}
-export default Object.assign({}, config, overrides)
+  protocol: 'https',
+
+  db: process.env.DB || 'mongodb://localhost:10008/momentum',
+  jwt: {
+    secret: 'momentum123',
+  },
+});

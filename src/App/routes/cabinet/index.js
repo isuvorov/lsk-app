@@ -1,4 +1,4 @@
-
+import ProfilePage from './ProfilePage'
 export default {
   // path: '/',
   children: [
@@ -7,7 +7,7 @@ export default {
       action() {
         return {
           title: 'Cabinet',
-          component: <div>Cabinet</div>,
+          component: <ProfilePage />,
         }
       },
     },
@@ -16,7 +16,7 @@ export default {
       action() {
         return {
           title: 'profile',
-          component: <div>profile</div>,
+          component: <ProfilePage />,
         }
       },
     },
@@ -30,11 +30,11 @@ export default {
   async action({ next }) {
     const route = await next();
 
-    route.component = <div>
-      Cabinet header
-      <hr />
-      {route.component}
-    </div>
+    // route.component = <div>
+    //   Cabinet header
+    //   <hr />
+    //   {route.component}
+    // </div>
     return route;
   },
 

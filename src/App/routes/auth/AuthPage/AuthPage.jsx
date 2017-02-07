@@ -1,165 +1,204 @@
-import React, { Component } from 'react'
-import importcss from 'importcss'
-import { autobind } from 'core-decorators'
-import sample from 'lodash/sample'
+import React from 'react';
+import importcss from 'importcss';
+import { autobind } from 'core-decorators';
+import { inject } from 'mobx-react';
+import sample from 'lodash/sample';
 import {
-  Container,
-  Row,
-  Col,
   Card,
   CardBlock,
   CardFooter,
   CardTitle,
   CardText,
+} from 'reactstrap';
+import {
+  Grid,
+  Row,
+  Col,
   Button,
-  Form,
-  FormGroup,
-  ButtonGroup,
-  FormFeedback,
-  Label,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-} from 'reactstrap'
-import Email from 'react-icons/lib/fa/envelope'
-import Lock from 'react-icons/lib/fa/lock'
-import VKontakte from 'react-icons/lib/fa/vk'
-import Odnoklassniki from 'react-icons/lib/fa/odnoklassniki'
-import Facebook from 'react-icons/lib/fa/facebook'
-import Twitter from 'react-icons/lib/fa/twitter'
-import Twitch from 'react-icons/lib/fa/twitch'
-import Tumblr from 'react-icons/lib/fa/tumblr'
-import Instagram from 'react-icons/lib/fa/instagram'
-import Loading from 'react-icons/lib/md/refresh'
-import Error from 'react-icons/lib/md/clear'
-import Check from 'react-icons/lib/md/check'
-import Slide from 'lsk-general/General/Slide'
-import Link from 'lsk-general/General/Link'
+} from 'react-bootstrap';
+import Email from 'react-icons/lib/fa/envelope';
+import Lock from 'react-icons/lib/fa/lock';
 
+import VKontakte from 'react-icons/lib/fa/vk';
+import Odnoklassniki from 'react-icons/lib/fa/odnoklassniki';
+import Facebook from 'react-icons/lib/fa/facebook';
+import Twitter from 'react-icons/lib/fa/twitter';
+import Twitch from 'react-icons/lib/fa/twitch';
+import Tumblr from 'react-icons/lib/fa/tumblr';
+import Instagram from 'react-icons/lib/fa/instagram';
+
+import Loading from 'react-icons/lib/md/refresh';
+import Error from 'react-icons/lib/md/clear';
+import Check from 'react-icons/lib/md/check';
+
+import Component from 'lsk-general/General/Component';
+import Slide from 'lsk-general/General/Slide';
+import Link from 'lsk-general/General/Link';
+import A from 'lsk-general/General/A';
+import Form from 'lsk-general/General/Form';
+
+@inject('app')
 @importcss(require('./AuthPage.css'))
-export default class LoginPage extends Component {
-  constructor() {
-    super()
-    this.state = {
-      email: '',
-      validEmail: 'none',
-      password: '',
-      validPassword: 'none',
-      status: 'none',
-    }
-  }
+export default class AuthPage extends Component {
 
   @autobind
-  handleChangeField(field) {
-    return (e) => {
-      this.setState({
-        [field]: e.target.value,
-        [`valid${field.capitalize()}`]: this.validate(field),
+  async handleSubmit(data) {
+    const auth = this.props.app.auth;
+    // try {
+    if (this.props.type === 'login') {
+      const res = await auth.login(data)
+      this.redirect('/');
+    }
+    if (this.props.type === 'signup') {
+      const res = await auth.signup(data)
+      this.redirect('/');
+    }
+    if (this.props.type === 'recovery') {
+      const res = await auth.recovery(data)
+      global.toast({
+        type: 'success',
+        title: 'Письмо с восстановлением пароля отправлено на почту.',
       })
     }
+    // }
+    // console.log('handleSubmit', data);
+    // global.toast('asdasda');
   }
 
-  @autobind
-  validate(type) {
-    const rgxEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-    const e = this.state[type]
-    if (e.length === 0) {
-      return 'none'
-    } else if (type === 'email' ? rgxEmail.test(e) : e.length > 6) {
-      return 'success'
-    }
-    return 'danger'
-  }
-
-  @autobind
-  handleSubmit(e) {
-    e.preventDefault();
-    this.setState({ status: 'wait' })
-    setTimeout(() => {
-      this.setState({ status: sample(['ok', 'error']) })
-    }, 2000)
-    setTimeout(() => {
-      this.setState({ status: 'none' })
-    }, 3500)
-  }
   render() {
-    const { email, password, status } = this.state
+    let { type } = this.props;
+    if (!type) type = 'login';
+    const status = null;
+    let fields = [
+      {
+        name: 'login',
+        title: 'Email',
+        control: {
+          placeholder: 'Например, utkin@mail.ru',
+        },
+      },
+      {
+        name: 'password',
+        title: 'Пароль',
+        control: {
+          type: 'password',
+        },
+      },
+      {
+        name: 'name',
+        title: 'Имя',
+        control: {
+          placeholder: 'Например, Василий',
+        },
+      },
+    ];
+    if (type === 'login') {
+      fields = fields.slice(0, 2);
+      fields[1].help = (
+        <div style={{ textAlign: 'right' }}>
+          <A href="/auth/recovery">
+            Забыли пароль?
+          </A>
+        </div>
+      );
+    }
+    if (type === 'recovery') {
+      fields = fields.slice(0, 1);
+    }
+
     return (
-      <Slide full video='http://skill-branch.ru/video-background.webm'>
-        <Container>
+      <Slide
+        full
+        video="http://skill-branch.ru/video-background.webm"
+        overlay
+        // overlay='rgba()'
+      >
+        <Grid>
           <Row>
-            <Col md='5' style={{ margin: 'auto' }}>
+            <Col md={4} mdOffset={4}>
               <Card>
                 <CardBlock>
-                  <CardTitle>Вход</CardTitle>
-                  <Form onSubmit={this.handleSubmit}>
-                    <FormGroup color={this.validate('email')}>
-                      <Label for='emailInput'>Электронная почта</Label>
-                      <InputGroup>
-                        <InputGroupAddon><Email /></InputGroupAddon>
-                        <Input
-                          id='emailInput'
-                          type='email'
-                          placeholder='Электронная почта'
-                          state={this.validate('email')}
-                          onChange={this.handleChangeField('email')}
-                          value={email || ''}
-                        />
-                      </InputGroup>
-                      <If condition={this.validate('email') === 'danger'}>
-                        <FormFeedback>Введён не корректный адрес почты</FormFeedback>
-                      </If>
-                    </FormGroup>
-                    <FormGroup color={this.validate('password')}>
-                      <Label for='passwordInput'>Пароль</Label>
-                      <InputGroup>
-                        <InputGroupAddon><Lock /></InputGroupAddon>
-                        <Input
-                          id='passwordInput'
-                          type='password'
-                          placeholder='Пароль'
-                          state={this.validate('password')}
-                          onChange={this.handleChangeField('password')}
-                          value={password || ''}
-                        />
-                      </InputGroup>
-                      <If condition={this.validate('password') === 'danger'}>
-                        <FormFeedback>Пароль должен быть больше 6 символов</FormFeedback>
-                      </If>
+                  <CardTitle>
+                    <If condition={type === 'login'}>
+                      Вход
+                    </If>
+                    <If condition={type === 'signup'}>
+                      Регистрация
+                    </If>
+                    <If condition={type === 'recovery'}>
+                      Восстановить пароль
+                    </If>
+                  </CardTitle>
+                  <Form
+                    fields={fields}
+                    validators={{
+                      login: {
+                        presence: {
+                          message: 'Поле не должно быть пустым.',
+                        },
+                        email: {
+                          message: 'Введите корректный адрес почты.',
+                        },
+                      },
+                      password: {
+                        presence: {
+                          message: 'Поле не должно быть пустым',
+                        },
+                        length: {
+                          minimum: 6,
+                          message: 'Пароль должен быть больше 6 символов.',
+                        },
+                      },
+                      name: {
+                        presence: {
+                          message: 'Поле не должно быть пустым',
+                        },
+                      },
+                    }}
+                    onSubmit={this.handleSubmit}
+                    // onError={this.handleSubmit}
+                    submitButton={(
                       <Button
-                        styleName='recovery-password'
-                        color='link'
-                        href='/auth/recovery'
-                        tag={Link}
+                        type="submit"
+                        bsStyle="primary"
+                        disabled={!!status}
+                        style={{
+                          position: 'relative',
+                        }}
                       >
-                        Забыли пароль?
+                        {/* <If condition={!status}> */}
+                        <span style={{ visibility: !status ? 'visible' : 'hidden' }}>
+                          <If condition={type === 'login'}>
+                            Войти
+                          </If>
+                          <If condition={type === 'signup'}>
+                            Зарегистрироваться
+                          </If>
+                          <If condition={type === 'recovery'}>
+                            Восстановить пароль
+                          </If>
+                        </span>
+                        {/* <div styleName="button-icon-status spin"><Loading /></div> */}
+                        <If condition={status}>
+                          <div styleName="button-icon-status">
+                            <If condition={status === 'wait'}>
+                              <Loading />
+                            </If>
+                            <If condition={status === 'ok'}>
+                              <Check />
+                            </If>
+                            <If condition={status === 'error'}>
+                              <Error />
+                            </If>
+                          </div>
+                        </If>
                       </Button>
-                    </FormGroup>
-                    <Button
-                      size='lg'
-                      color='primary'
-                      disabled={
-                        status !== 'none'
-                        || this.validate('email') === 'none'
-                        || this.validate('password') === 'none'
-                      }
-                    >
-                      <If condition={status === 'none'}>
-                        Войти
-                      </If>
-                      <If condition={status === 'wait'}>
-                        <div styleName='button-icon-status spin'><Loading /></div>
-                      </If>
-                      <If condition={status === 'ok'}>
-                        <div styleName='button-icon-status'><Check /></div>
-                      </If>
-                      <If condition={status === 'error'}>
-                        <div styleName='button-icon-status'><Error /></div>
-                      </If>
-                    </Button>
-                  </Form>
+                    )}
+                  />
+
                 </CardBlock>
-                <CardFooter className='text-xs-center'>
+
+                {/* <CardFooter className="text-xs-center">
                   <ButtonGroup>
                     <Button styleName='btn-social is-vkontakte'><VKontakte /></Button>
                     <Button styleName='btn-social is-odnoklassniki'><Odnoklassniki /></Button>
@@ -169,26 +208,42 @@ export default class LoginPage extends Component {
                     <Button styleName='btn-social is-tumblr'><Tumblr /></Button>
                     <Button styleName='btn-social is-instagram'><Instagram /></Button>
                   </ButtonGroup>
-                </CardFooter>
+                </CardFooter> */}
               </Card>
-              <Card>
-                <CardBlock className='text-xs-center'>
-                  <CardText>Если у вас нет аккаунта,<br />вы можете зарегистрироваться.</CardText>
-                  <Button
-                    color='success'
-                    href='/signup'
-                    tag={Link}
-                    outline
-                    block
-                  >
-                    Зарегистрироваться
-                  </Button>
-                </CardBlock>
-              </Card>
+
+
+              <If condition={type === 'signup'}>
+                <Card>
+                  <CardBlock className="text-xs-center">
+                    <CardText>У вас уже есть аккаунт?</CardText>
+                    <Link href='/auth'>
+                      <Button
+                        block
+                      >
+                        Войти
+                      </Button>
+                    </Link>
+                  </CardBlock>
+                </Card>
+              </If>
+              <If condition={type !== 'signup'}>
+                <Card>
+                  <CardBlock className="text-xs-center">
+                    <CardText>Если у вас нет аккаунта,<br />вы можете зарегистрироваться.</CardText>
+                    <Link href='/auth/signup'>
+                      <Button
+                        block
+                      >
+                        Зарегистрироваться
+                      </Button>
+                    </Link>
+                  </CardBlock>
+                </Card>
+              </If>
             </Col>
           </Row>
-        </Container>
+        </Grid>
       </Slide>
-    )
+    );
   }
 }

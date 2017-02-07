@@ -1,6 +1,6 @@
 // import HomePage from './HomeWWS'
-import ErrorPage from './ErrorPage'
-import config from '../../config/index.client'
+import ErrorPage from './ErrorPage';
+import config from '../../config/client';
 
 export default {
   path: '/',
@@ -13,6 +13,10 @@ export default {
       path: '/game',
       ...require('./game').default,
     },
+    {
+      path: '/admin',
+      ...require('./admin').default,
+    },
     // {
     //   path: '/notes',
     //   ...require('./notes').default,
@@ -21,10 +25,10 @@ export default {
       path: '/auth',
       ...require('./auth').default,
     },
-    // {
-    //   path: '/cabinet',
-    //   ...require('./cabinet').default,
-    // },
+    {
+      path: '/cabinet',atom
+      ...require('./cabinet').default,
+    },
     {
       path: '*',
       action() {
@@ -32,7 +36,7 @@ export default {
       },
     },
   ],
-  async action({ next }) {
+  async action({ next, ctx }) {
     let route;
     try {
       route = await next();
@@ -41,9 +45,9 @@ export default {
       route = {
         title: `!!!Error: ${err}`,
         component: <ErrorPage>{`Error: ${err}`}</ErrorPage>,
-      }
+      };
     }
-    if (!route) route = {}
+    if (!route) route = {};
     route.title = `${route.title || 'Untitled Page'} - ${config.siteTitle}`;
     route.description = route.description || config.siteTitle;
     return route;

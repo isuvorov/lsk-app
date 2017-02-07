@@ -1,7 +1,7 @@
-import UniversalSchema from 'lego-starter-kit/utils/UniversalSchema'
+import UniversalSchema from 'lego-starter-kit/utils/UniversalSchema' // eslint-disable-line
 
 
-export function getSchema(ctx) {
+export function getSchema(ctx) { // eslint-disable-line
   // const mongoose = ctx.db;
   const schema = new UniversalSchema({
     userId: {
@@ -9,9 +9,6 @@ export function getSchema(ctx) {
     },
     categoryId: {
       type: String,
-    },
-    userInfo: {
-      type: Object,
     },
     tasks: {
       type: Array,
@@ -22,13 +19,22 @@ export function getSchema(ctx) {
     result: {
       type: Object,
     },
-  })
+    boughtAt: {
+      type: Date,
+    },
+    finishedAt: {
+      type: Date,
+    },
+    cert: {
+      type: Object,
+    },
+  });
 
-  return schema
+  return schema;
 }
 
 
 export default (ctx) => {
   const schema = getSchema(ctx);
-  return ctx.db.model('Game', schema.getMongooseSchema(), 'game')
-}
+  return ctx.db.model('Game', schema.getMongooseSchema(), 'game');
+};

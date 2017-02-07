@@ -1,7 +1,8 @@
 import { observable } from 'mobx';
 import AuthStore from './AuthStore';
 import ApiClient from '../api/api.client';
-import config from '../../config/index.client'; // TODO fix
+import cookie from 'react-cookie';
+import config from '../../config/client'; // TODO fix
 
 class AppStore {
   user = null;
@@ -10,13 +11,28 @@ class AppStore {
 
   @observable updateCount = 0;
   update() {
-    this.updateCount += 1
-    console.log('this.updateCount', this.updateCount);
+    this.updateCount += 1;
+    // console.log('this.updateCount', this.updateCount);
   }
 
   constructor(rootState, req) {
     this.api = new ApiClient({ base: '/api/v1' });
     this.auth = new AuthStore(this);
+    // console.log({req, rootState});
+
+    if (__SERVER__) {
+      if (!req._errJwt && req.user && req.user._id) {
+        this.auth.init({
+          token: req.token,
+          user: req.user,
+        });
+      }
+    } else {
+      this.auth.init({
+        token: cookie.load('token'),
+        user: rootState.user,
+      });
+    }
   }
 
   provide() {
@@ -25,7 +41,7 @@ class AppStore {
       auth: this.auth,
       user: this.auth && this.auth.user,
       api: this.api,
-    }
+    };
   }
 }
 

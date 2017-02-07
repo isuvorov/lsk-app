@@ -1,16 +1,17 @@
-import React, { Component } from 'react'
-import MomentumPage from 'lsk-quiz/Abp/MomentumPage'
+import dynamicRoutes from '../dynamicRoutes';
 
-// import HomePage from './HomePage'
-import getData from './getData'
 export default {
   path: '/',
-  async action({ app, ctx, next }) {
-    const data = await getData(ctx, app);
-    //
-    //
-    return {
-      component: <MomentumPage data={data} />
-    }
-  },
+  action: dynamicRoutes({
+    'abb.quizly.ru': require('./abb').default,
+    'cbsd.quizly.ru': require('./cbsd').default,
+    'cbsd.quizly.x.mgbeta.ru': require('./cbsd').default,
+    'lico.quizly.ru': require('./lico').default,
+    'lico.quizly.x.mgbeta.ru': require('./lico').default,
+    'momentum.ru': require('./momentum').default,
+    'quizard.ru': require('./quizard').default,
+    'quizly.ru': require('./quizly').default,
+    '*': require('./lico').default,
+    // '*': require('./quizard').default,
+  }),
 };

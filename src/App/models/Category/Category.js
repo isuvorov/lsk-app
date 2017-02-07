@@ -1,28 +1,6 @@
-// import {Schema} from 'universal-model'
-//
-// export default(ctx) => {
-//   return new Schema({
-//     categoryId: {
-//       type: String
-//     },
-//     tags: {
-//       type: [String]
-//     },
-//     title: {
-//       type: String
-//     },
-//     subtitle: {
-//       type: String
-//     },
-//     image: {
-//       type: String
-//     }
-//   }, {collection: 'Category'})
-// }
+import UniversalSchema from 'lego-starter-kit/utils/UniversalSchema'; // eslint-disable-line
 
-import UniversalSchema from 'lego-starter-kit/utils/UniversalSchema'
-
-export function getSchema(ctx) {
+export function getSchema(ctx) { // eslint-disable-line
   // const mongoose = ctx.db;
   const schema = new UniversalSchema({
     categoryId: {
@@ -40,13 +18,13 @@ export function getSchema(ctx) {
     image: {
       type: String,
     },
-  })
+  });
 
-  return schema
+  return schema;
 }
 
 
 export default (ctx) => {
   const schema = getSchema(ctx);
-  return ctx.db.model('Category', schema.getMongooseSchema(), 'category')
-}
+  return ctx.db.model('Category', schema.getMongooseSchema(), 'category');
+};
