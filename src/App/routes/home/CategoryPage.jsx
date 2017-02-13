@@ -16,7 +16,7 @@ export default class CategoryPage extends Component { //eslint-disable-line
   renderNavbar() {
     const { user } = this.props;
     return (
-      <Navbar inverse collapseOnSelect>
+      <Navbar staticTop inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
             <a href="#">{this.props.title}</a>
