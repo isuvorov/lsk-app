@@ -26,7 +26,7 @@ export default {
       ...require('./auth').default,
     },
     {
-      path: '/cabinet',atom
+      path: '/cabinet',
       ...require('./cabinet').default,
     },
     {

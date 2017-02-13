@@ -22,6 +22,11 @@ const ctx = {
       path: fs.realpathSync(`${dirname}/node_modules/lsk-quiz/src`),
       alias: 'lsk-quiz',
     },
+    {
+      name: 'lsk-admin',
+      path: fs.realpathSync(`${dirname}/node_modules/lsk-admin/src`),
+      alias: 'lsk-admin',
+    },
     // {
     //   name: 'universal-model',
     //   path: fs.realpathSync(`${dirname}/node_modules/universal-model/src`),

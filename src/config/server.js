@@ -9,7 +9,9 @@ export default config.server(baseConfig, {
 
   protocol: 'https',
 
-  db: process.env.DB || 'mongodb://localhost:10008/momentum',
+  db: {
+    uri: process.env.DB || 'mongodb://localhost:10008/momentum',
+  },
   jwt: {
     secret: 'momentum123',
   },

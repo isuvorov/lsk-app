@@ -17,6 +17,7 @@
     "importcss": "^1.0.3",
     "lego-starter-kit": "^1.1.4",
     "lodash": "^4.17.4",
+    "lsk-admin": "^0.5.1",
     "lsk-general": "^0.5.1",
     "lsk-quiz": "git+ssh://git@bitbucket.org/mgbeta/lsk-quiz.git#v2.0.3",
     "react": "^15.4.2",

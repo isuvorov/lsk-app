@@ -46,19 +46,19 @@ export default class AuthPage extends Component {
     const auth = this.props.app.auth;
     // try {
     if (this.props.type === 'login') {
-      const res = await auth.login(data)
+      const res = await auth.login(data);
       this.redirect('/');
     }
     if (this.props.type === 'signup') {
-      const res = await auth.signup(data)
+      const res = await auth.signup(data);
       this.redirect('/');
     }
     if (this.props.type === 'recovery') {
-      const res = await auth.recovery(data)
+      const res = await auth.recovery(data);
       global.toast({
         type: 'success',
         title: 'Письмо с восстановлением пароля отправлено на почту.',
-      })
+      });
     }
     // }
     // console.log('handleSubmit', data);
@@ -172,10 +172,10 @@ export default class AuthPage extends Component {
                             Войти
                           </If>
                           <If condition={type === 'signup'}>
-                            Зарегистрироваться
+                            Создать аккаунт
                           </If>
                           <If condition={type === 'recovery'}>
-                            Восстановить пароль
+                            Сбросить пароль
                           </If>
                         </span>
                         {/* <div styleName="button-icon-status spin"><Loading /></div> */}
@@ -195,7 +195,6 @@ export default class AuthPage extends Component {
                       </Button>
                     )}
                   />
-
                 </CardBlock>
 
                 {/* <CardFooter className="text-xs-center">
@@ -214,29 +213,29 @@ export default class AuthPage extends Component {
 
               <If condition={type === 'signup'}>
                 <Card>
-                  <CardBlock className="text-xs-center">
+                  <CardBlock className="text-xs-center" style={{ textAlign: 'center' }}>
                     <CardText>У вас уже есть аккаунт?</CardText>
-                    <Link href='/auth'>
-                      <Button
-                        block
-                      >
-                        Войти
-                      </Button>
-                    </Link>
+                    <Button
+                      componentClass={Link}
+                      href="/auth"
+                      block
+                    >
+                      Войти
+                    </Button>
                   </CardBlock>
                 </Card>
               </If>
               <If condition={type !== 'signup'}>
                 <Card>
-                  <CardBlock className="text-xs-center">
-                    <CardText>Если у вас нет аккаунта,<br />вы можете зарегистрироваться.</CardText>
-                    <Link href='/auth/signup'>
-                      <Button
-                        block
-                      >
-                        Зарегистрироваться
-                      </Button>
-                    </Link>
+                  <CardBlock className="text-xs-center" style={{ textAlign: 'center' }}>
+                    <CardText>Вы еше не зарегистрированы?</CardText>
+                    <Button
+                      componentClass={Link}
+                      href="/auth/signup"
+                      block
+                    >
+                      Создать аккаунт
+                    </Button>
                   </CardBlock>
                 </Card>
               </If>
