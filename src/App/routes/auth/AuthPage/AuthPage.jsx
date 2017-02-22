@@ -46,7 +46,7 @@ export default class AuthPage extends Component {
     const auth = this.props.app.auth;
     // try {
     if (this.props.type === 'login') {
-      const res = await auth.login(data);
+      await auth.login(data);
       this.redirect('/');
     }
     if (this.props.type === 'signup') {
@@ -156,7 +156,7 @@ export default class AuthPage extends Component {
                       },
                     }}
                     onSubmit={this.handleSubmit}
-                    // onError={this.handleSubmit}
+                    // onError={(e) => console.log(e)}
                     submitButton={(
                       <Button
                         type="submit"

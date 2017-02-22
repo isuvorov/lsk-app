@@ -13,7 +13,7 @@ export default config.server(baseConfig, {
     enable: true,
   },
   db: {
-    uri: process.env.DB || 'mongodb://localhost:10008/momentum',
+    uri: process.env.DB || 'mongodb://s2.mgbeta.ru:10098/expo',
   },
   jwt: {
     secret: 'momentum123',

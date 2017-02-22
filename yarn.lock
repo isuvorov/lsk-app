@@ -5725,9 +5725,6 @@ lsk-general@^0.4.2:
     react-drive-in "^1.7.3"
     react-icons "^2.2.3"
 
-lsk-general@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/lsk-general/-/lsk-general-0.5.2.tgz#d73d2b37cfe98802d3bf61ce3b0c5555729f5739"
   dependencies:
     core-decorators "^0.15.0"
     glob-loader "0.3.0"

@@ -17,11 +17,11 @@ export default class AuthStore {
   @autobind
   init(data) {
     // console.log('AuthStore.init', data);
-    if (data.token === 'undefined' || !data.token || !data.user || !data.user._id)  {
+    if (data.token === 'undefined' || !data.token || !data.user || !data.user._id) {
       this.logout();
       return null;
     }
-    this.save(data)
+    this.save(data);
     // const token = cookie.load('authToken')
     // if (token) {
     //   this.promise = this.login({token}).catch(err => {
@@ -35,10 +35,9 @@ export default class AuthStore {
   }
 
 
-  promise = null
+  promise = Promise.resolve()
   isAuthAsync() {
-    return this.promise
-    .then(() => !!this.isAuth)
+    return this.promise.then(() => !!this.isAuth)
     .catch(() => !!this.isAuth);
   }
 
@@ -74,7 +73,7 @@ export default class AuthStore {
 
   async save(data) {
     // console.log('Auth.save', data);
-    if (data.token === 'undefined' || !data.token || !data.user || !data.user._id)  {
+    if (data.token === 'undefined' || !data.token || !data.user || !data.user._id) {
       this.logout();
       return null;
     }
