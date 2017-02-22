@@ -1,6 +1,8 @@
+import { createRoute, createSocketNamespace } from 'universal-model';
+import _ from 'lodash';
 import asyncRouter from 'lego-starter-kit/utils/AsyncRouter';
+import models from './umodels';
 import Note from './Note';
-// import { createRpcRoute } from 'universal-model'
 
 
 export default function getApi(ctx, params) {
@@ -8,10 +10,15 @@ export default function getApi(ctx, params) {
 
   api.all('/test', (req) => {
     console.log('test');
-    const pet = new ctx.models.Pet()
+    const pet = new ctx.models.Pet();
 
     pet.test();
   });
+
+  api.all('/universal', createRoute({ ...ctx, models }));
+  ctx.app.ws('/universal', createSocketNamespace({ ...ctx, models }))
+
+  // api.all('/universal-socket', createRoute({...ctx, models, socket: true}));
   api.all('/auth/login', ctx.resourses.Auth.login);
   api.all('/auth/signup', ctx.resourses.Auth.signup);
   api.all('/auth/recovery', ctx.resourses.Auth.recovery);

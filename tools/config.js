@@ -4,6 +4,15 @@ const ctx = {
   env: process.env.NODE_ENV,
   debug: !process.argv.includes('--release'),
   verbose: process.argv.includes('--verbose'),
+  // verbose: true,
+  // sourcemap: false,
+  webpackConfigDist: `${dirname}/build/webpack.config.js`,
+  webpackStats: 'verbose',
+  // webpackStats:{
+  //   chunkModules: true,
+  // },
+
+  // webpackStats: `${dirname}/build/webpack.stats.js`,
   dirname,
   pkg: require('../package.json'),
   deps: [

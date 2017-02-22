@@ -10,6 +10,10 @@ export default {
       ...require('./home').default,
     },
     {
+      path: '/test',
+      ...require('./test').default,
+    },
+    {
       path: '/game',
       ...require('./game').default,
     },

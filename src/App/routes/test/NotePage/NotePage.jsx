@@ -26,7 +26,7 @@ export default class NotePage extends Page {
           Игорь Суворов
         </h1>
         <h2 styleName='subtitle'>
-          Программист, предприниматель и ...блоггер?!!
+          @@@Программист, предприниматель и ...блоггер?
         </h2>
       </Slide>
       <Slide

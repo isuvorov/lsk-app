@@ -8,7 +8,10 @@ export default config.server(baseConfig, {
   port: process.env.PORT || 8080,
 
   protocol: 'https',
-
+  sockets: {
+    transports: ['websockets'],
+    enable: true,
+  },
   db: {
     uri: process.env.DB || 'mongodb://localhost:10008/momentum',
   },
