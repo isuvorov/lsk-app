@@ -14,21 +14,28 @@ export default {
   children: [
     {
       path: '/',
-      async action({ ctx }) {
-        console.log({ctx});
+      async action({ ctx, app }) {
+        // console.log({umodels: app.umodels});
+        const Task = app.umodels.task;
+        const tasks = await Task.find({}, {limit: 10});
+        // if(__CLIENT__)  console.log({tasks});
+        // console.log({Task});
         const props = {
           title: 'Панель управления',
           description: 'Управление приложением',
           siteTitle: ctx.config.siteTitle,
           children: <div>
-            {/* {Task.getTasks().map(task => (
+            {tasks.map(task => (
               <div>
-                {JSON.stringify(task)}
-                <button>
+                <h2>
+                  {task.title}
+                </h2>
+                <img src={task.getImage()} />
+                {/* <button onClick={task.getCountUsers()}>
                   some
-                </button>
+                </button> */}
               </div>
-            ))} */}
+            ))}
           </div>,
         };
         return {

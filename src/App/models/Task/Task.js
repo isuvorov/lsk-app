@@ -22,11 +22,20 @@ export function getSchema(ctx) { // eslint-disable-line
     strict: false,
   });
 
+  schema.methods.getStartDate = async function () {
+    const { startDate } = this;
+    return startDate;
+  };
+  schema.methods.getImage = async function () {
+    const { coverImage } = this;
+    return `https://hijay-dev.mgbeta.ru${coverImage}`;
+  };
+
   return schema;
 }
 
 
 export default (ctx) => {
   const schema = getSchema(ctx);
-  return ctx.db.model('Task', schema.getMongooseSchema(), 'task');
+  return ctx.db.model('Task', schema.getMongooseSchema(), 'events');
 };
