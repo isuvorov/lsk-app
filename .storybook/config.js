@@ -1,2 +1,7 @@
-import { wrapModules } from './storybook';
-wrapModules(require('glob-loader!./story.pattern'), module);
+import { wrapModules, setConfig } from 'storybox';
+setConfig({
+  options: {
+    name: 'MyExample',
+  }
+})
+wrapModules(require('glob!./glob.txt'), module);

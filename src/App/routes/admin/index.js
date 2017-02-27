@@ -9,20 +9,31 @@ function provide(props) {
   return create(AdminLayout, props);
 }
 
+
 export default {
   children: [
     {
       path: '/',
       async action({ ctx }) {
+        console.log({ctx});
         const props = {
           title: 'Панель управления',
           description: 'Управление приложением',
           siteTitle: ctx.config.siteTitle,
-          children: create(Dashboard),
+          children: <div>
+            {/* {Task.getTasks().map(task => (
+              <div>
+                {JSON.stringify(task)}
+                <button>
+                  some
+                </button>
+              </div>
+            ))} */}
+          </div>,
         };
         return {
           title: props.title,
-          component: provide(props),
+          component: <AdminLayout {...props} />,
         };
       },
     },

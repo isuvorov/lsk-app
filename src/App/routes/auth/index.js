@@ -2,9 +2,10 @@
  export default {
    children: [
      {
+      //  path: '/login',
        path: '/(login|)',
        action({appStore}) {
-         console.log('appStore', appStore.auth);
+        //  console.log('appStore', appStore.auth);
          return {
            title: 'Cabinet',
            component: <AuthPage type="login" />,

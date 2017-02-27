@@ -38,11 +38,17 @@ function castTask(task) {
 
 export default class App extends ReactApp {
 
+
   getModels() {
     return {
       ...super.getModels(),
       ...require('./models').default(this), // eslint-disable-line
     };
+  }
+
+  init(...args) {
+    super.init(...args);
+    this.umodels = require('./umodels').default(this);
   }
 
   useRoutes() {

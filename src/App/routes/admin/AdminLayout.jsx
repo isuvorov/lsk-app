@@ -92,30 +92,34 @@ export default class AdminLayout extends Component {
             </LargeLogo>
           </Logo>
           <Navbar controlbar={false}>
-            <UserMenu
-              // onLinkClick={action('onLinkClick')}
-              onButtonClick={this.logout}
-              image={'https://remont3.ru/templates/umedia/dleimages/noavatar.png'}
-              name={user.name}
-              title={`Добро пожаловать, ${user.name}`}
-              links={[
-                { key: 1, text: 'Link 1' },
-                { key: 2, text: 'Link 2' },
-                { key: 3, text: 'Link 3' },
-              ]}
-              buttons={[
-                { key: 1, text: 'Профиль', align: 'left' },
-                { key: 2, text: 'Выход' },
-              ]}
-            />
+            <If condition={user}>
+              <UserMenu
+                // onLinkClick={action('onLinkClick')}
+                onButtonClick={this.logout}
+                image={'https://remont3.ru/templates/umedia/dleimages/noavatar.png'}
+                name={user.name}
+                title={`Добро пожаловать, ${user.name}`}
+                links={[
+                  { key: 1, text: 'Link 1' },
+                  { key: 2, text: 'Link 2' },
+                  { key: 3, text: 'Link 3' },
+                ]}
+                buttons={[
+                  { key: 1, text: 'Профиль', align: 'left' },
+                  { key: 2, text: 'Выход' },
+                ]}
+              />
+            </If>
           </Navbar>
         </HeaderWrapper>
         <SidebarWrapper>
-          <UserPanel
-            statusText="В сети"
-            image={'https://remont3.ru/templates/umedia/dleimages/noavatar.png'}
-            name={user.name}
-          />
+          <If condition={user}>
+            <UserPanel
+              statusText="В сети"
+              image={'https://remont3.ru/templates/umedia/dleimages/noavatar.png'}
+              name={user.name}
+            />
+          </If>
           <SidebarSearch
             placeholder="Поиск..."
             onSubmit={(e) => console.log(e)}

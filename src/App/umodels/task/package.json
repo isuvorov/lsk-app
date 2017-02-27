@@ -1,0 +1,4 @@
+{
+  "main": "task.server.js",
+  "browser": "task.client.js"
+}

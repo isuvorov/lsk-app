@@ -5,9 +5,9 @@ export default class App extends ReactApp {
   static Html = require('./Html').default
   Provider = require('./stores/AppStore').default
 
-  getModels() {
-    return {};
-    // return require('./models').default(this)
+  init(...args) {
+    super.init(...args);
+    this.umodels = require('./umodels').default(this);
   }
 
   getUniversalRoutes() {
@@ -23,7 +23,6 @@ export default class App extends ReactApp {
   }
 
   async run() {
-    this.models = this.getModels();
     const res = await super.run();
     // console.log('this.Provider', this.provider.auth.init());
 

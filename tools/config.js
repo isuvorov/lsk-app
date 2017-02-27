@@ -5,9 +5,9 @@ const ctx = {
   debug: !process.argv.includes('--release'),
   verbose: process.argv.includes('--verbose'),
   // verbose: true,
-  // sourcemap: false,
-  webpackConfigDist: `${dirname}/build/webpack.config.js`,
-  webpackStats: 'verbose',
+  sourcemap: true,
+  // webpackConfigDist: `${dirname}/build/webpack.config.js`,
+  // webpackStats: 'verbose',
   // webpackStats:{
   //   chunkModules: true,
   // },

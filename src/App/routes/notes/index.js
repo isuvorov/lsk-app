@@ -1,7 +1,7 @@
 import Note from '../../api/Note'
 import NotePage from './NotePage'
 export default {
-  path: '*',
+  path: '/asdasd',
   async action({ path, next }) {
     const notePath = path.substr(6)
     const note = await Note.get(notePath)

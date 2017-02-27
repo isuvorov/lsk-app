@@ -1,12 +1,13 @@
 import { createRoute, createSocketNamespace } from 'universal-model';
 import _ from 'lodash';
 import asyncRouter from 'lego-starter-kit/utils/AsyncRouter';
-import models from './umodels';
 import Note from './Note';
 
 
 export default function getApi(ctx, params) {
   const api = ctx.asyncRouter();
+  const models = ctx.umodels;
+  console.log({models});
 
   api.all('/test', (req) => {
     console.log('test');
