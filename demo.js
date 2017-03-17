@@ -24,7 +24,7 @@ const b = [
 
 import React, { Component } from 'react'
 import AppForm from 'lsk-quiz/Quiz/AppForm'
-import CertForm from 'lsk-quiz/Quiz/CertForm'
+import CertForm from 'lsk-quiz/Cert/CertForm'
 import Api from '../../api/api.client'
 
 import Slide from 'lsk-general/General/Slide'

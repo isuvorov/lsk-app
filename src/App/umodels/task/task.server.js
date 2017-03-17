@@ -1,4 +1,5 @@
 
+
 export default ctx => ({
   universalActions: ['getTasks', 'find', 'findOne'],
   getTasks() {
@@ -6,7 +7,6 @@ export default ctx => ({
     return Task.find();
   },
   find(...args) {
-    console.log({ args });
     const { Task } = ctx.models;
     return Task.find(...args);
   },

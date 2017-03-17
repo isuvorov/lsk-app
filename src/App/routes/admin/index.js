@@ -17,7 +17,7 @@ export default {
       async action({ ctx, app }) {
         // console.log({umodels: app.umodels});
         const Task = app.umodels.task;
-        const tasks = await Task.find({}, {limit: 10});
+        const tasks = await Task.find({}, {}, {limit: 10});
         // if(__CLIENT__)  console.log({tasks});
         // console.log({Task});
         const props = {
@@ -30,7 +30,7 @@ export default {
                 <h2>
                   {task.title}
                 </h2>
-                <img src={task.getImage()} />
+                <img src={task.getImage()} height={100} />
                 {/* <button onClick={task.getCountUsers()}>
                   some
                 </button> */}

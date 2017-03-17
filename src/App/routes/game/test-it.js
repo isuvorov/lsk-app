@@ -81,23 +81,23 @@ const test = {
         options: [
           {
             value: 0,
-            image: 'https://pp.vk.me/c627420/v627420258/22455/FCdwTY_j96s.jpg',
+            image: 'https://pp.userapi.com/c627420/v627420258/22455/FCdwTY_j96s.jpg',
           },
           {
             value: 1,
-            image: 'https://pp.vk.me/c628416/v628416081/25b9d/hlqwzGKtdds.jpg',
+            image: 'https://pp.userapi.com/c628416/v628416081/25b9d/hlqwzGKtdds.jpg',
           },
           {
             value: 2,
-            image: 'https://pp.vk.me/c629208/v629208244/23be7/JUGFZ3s8Ol0.jpg',
+            image: 'https://pp.userapi.com/c629208/v629208244/23be7/JUGFZ3s8Ol0.jpg',
           },
           {
             value: 3,
-            image: 'https://pp.vk.me/c629529/v629529444/1d5fe/CpN29Q9qHXo.jpg',
+            image: 'https://pp.userapi.com/c629529/v629529444/1d5fe/CpN29Q9qHXo.jpg',
           },
           {
             value: 4,
-            image: 'https://pp.vk.me/c629529/v629529163/21487/55Fs4ZTMnWk.jpg',
+            image: 'https://pp.userapi.com/c629529/v629529163/21487/55Fs4ZTMnWk.jpg',
           },
         ],
       },

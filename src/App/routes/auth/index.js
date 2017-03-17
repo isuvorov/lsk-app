@@ -1,11 +1,12 @@
  import AuthPage from './AuthPage';
+ import React, {Component} from 'react'
+
  export default {
    children: [
      {
       //  path: '/login',
        path: '/(login|)',
-       action({appStore}) {
-        //  console.log('appStore', appStore.auth);
+       action() {
          return {
            title: 'Cabinet',
            component: <AuthPage type="login" />,

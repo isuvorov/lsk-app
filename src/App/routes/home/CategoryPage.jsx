@@ -6,10 +6,10 @@ import Slide from 'lsk-general/General/Slide';
 import Form from 'lsk-general/General/Form';
 import Link from 'lsk-general/General/Link';
 
-import Card from 'lsk-quiz/Abp/Card';
-import Button from 'lsk-quiz/Abp/Button';
-import Input from 'lsk-quiz/Abp/Input';
-import Content from 'lsk-quiz/Abp/Content';
+import Card from 'lsk-quiz/Momentum/Card';
+import Button from 'lsk-quiz/Momentum/Button';
+import Input from 'lsk-quiz/Momentum/Input';
+import Content from 'lsk-quiz/Momentum/Content';
 
 
 export default class CategoryPage extends Component { //eslint-disable-line
@@ -19,7 +19,9 @@ export default class CategoryPage extends Component { //eslint-disable-line
       <Navbar staticTop inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#">{this.props.title}</a>
+            <Link href="/">
+              {this.props.title}
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -28,7 +30,13 @@ export default class CategoryPage extends Component { //eslint-disable-line
             <Nav pullRight>
               {/* <NavItem eventKey={1} href="#">Link</NavItem> */}
               <NavDropdown eventKey={3} title={user.name} id="basic-nav-dropdown">
-                <MenuItem eventKey={3.1}>Профиль</MenuItem>
+                <MenuItem eventKey={3.1}
+                  containerElement={<Link href="/cabinet" />}
+                  eventKey={3.3}
+                  href="/cabinet"
+                >
+                    Профиль
+                </MenuItem>
                 <MenuItem divider />
                 <MenuItem
                   linkButton
@@ -86,6 +94,7 @@ export default class CategoryPage extends Component { //eslint-disable-line
                 {(this.props.categories || []).map(category => (
                   <Col md={4}>
                     <Card
+                      wrap
                       {...category}
                     />
                   </Col>

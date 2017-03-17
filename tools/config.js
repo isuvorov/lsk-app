@@ -6,7 +6,7 @@ const ctx = {
   verbose: process.argv.includes('--verbose'),
   // verbose: true,
   sourcemap: true,
-  // webpackConfigDist: `${dirname}/build/webpack.config.js`,
+  webpackConfigDist: `${dirname}/build/webpack.config.js`,
   // webpackStats: 'verbose',
   // webpackStats:{
   //   chunkModules: true,

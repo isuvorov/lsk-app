@@ -1,14 +1,15 @@
-import ProfilePage from './ProfilePage'
+import ProfilePage from './ProfilePage';
 export default {
   // path: '/',
   children: [
     {
       path: '/',
-      action() {
+      action({ uapp, page }) {
+        // console.log(123123123, ctx);
         return {
           title: 'Cabinet',
           component: <ProfilePage />,
-        }
+        };
       },
     },
     {
@@ -17,13 +18,13 @@ export default {
         return {
           title: 'profile',
           component: <ProfilePage />,
-        }
+        };
       },
     },
     {
       path: '*',
       action() {
-        throw 'Not found in cabinet'
+        throw 'Not found in cabinet';
       },
     },
   ],

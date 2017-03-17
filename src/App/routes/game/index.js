@@ -1,5 +1,6 @@
 import React from 'react';
 import EventEmitter from 'eventemitter3';
+import _ from 'lodash';
 import moment from 'moment';
 import 'moment/locale/ru';
 import AppForm from 'lsk-quiz/Quiz/AppForm';
@@ -7,13 +8,14 @@ import App from 'lsk-quiz/Quiz/AppGame/App';
 import Slide from 'lsk-general/General/Slide';
 import Modal from 'lsk-general/General/Modal';
 import Api from '../../api/api.client';
-import CertForm from 'lsk-quiz/Quiz/CertForm';
-import Cert from 'lsk-quiz/Quiz/Cert';
+import CertForm from 'lsk-quiz/Cert/CertForm';
+import Cert from 'lsk-quiz/Cert/Cert';
 import Button from 'react-bootstrap/lib/Button';
 import YkassaQuickpayButton from './Ykassa/YkassaQuickpayButton';
 // import EventEmitter from 'eventemitter3'
 // import HomePage from './HomePage'
 import getData from './getData';
+import bots from './bots';
 
 const api = new Api({
   base: '/',
@@ -23,7 +25,7 @@ export default {
   async action({ app, ctx, params, query, appStore }) {
     const user = appStore.auth.user;
     if (!user) {
-      return { redirect: '/auth' }
+      return { redirect: '/auth' };
     }
     const data = await getData(ctx, app, params);
     const game = data.game;
@@ -33,7 +35,7 @@ export default {
     };
 
 
-    if (test.tasks && test.tasks[0].platform === 'quizard') {
+    if (test.tasks && (test.tasks[0].platform === 'quizard' || test.tasks[0].platform === 'lico')) {
       const app = {
         userId: user._id,
         game: {
@@ -45,64 +47,70 @@ export default {
               avatar: user.avatar,
             },
           ],
-          ...require('./test').default,
+          tasks: game.tasks,
           params: {
             answerTime: 30000,
             willStartAtOffset: 7000,
+            shuffleTasks: false,
           },
         },
         scenario: {
           class: 'BotScenario',
-          bots: [
-            {
-              id: 'bot1',
-              name: 'Роман Калинкин',
-              avatar: 'https://pp.vk.me/c622627/v622627171/475f5/-Nf0MOGioeU.jpg',
-              bot: 'random',
-            },
-            {
-              id: 'bot2',
-              name: 'Игорь Суворов',
-              avatar: 'https://pp.vk.me/c637431/v637431029/1d2ee/igmgxhTd5vU.jpg',
-              bot: 'random',
-            },
-            {
-              id: 'bot3',
-              name: 'Анастасия Понамарёва',
-              avatar: 'https://pp.vk.me/c413023/v413023046/4703/S9LfABfkdOw.jpg',
-              bot: 'random',
-            },
-          ],
+          bots: _.sampleSize(bots, 3).map((b, i) => ({
+            ...b,
+            bot: 'random',
+            id: `bot${i}`,
+          })),
         },
       };
-      const layoutFinishContent = <div>
-        <h2>Дальнейшие действия</h2>
-        <Button bsStyle='primary'>
+      const layoutFinishContent = (
+        <div>
+          <h2>Дальнейшие действия</h2>
+          <Button href={`/game/${params.id}`} bsStyle="primary">
           Пройти еще раз
         </Button>
         &nbsp;
-        <Button bsStyle='primary'>
+          <Button href="/" bsStyle="primary">
           Выбрать другую тему
         </Button>
         &nbsp;
 
-        <Button bsStyle='primary'>
+          <Button href="/cabinet" bsStyle="primary">
           Перейти в личный кабинет
         </Button>
-      </div>
+        </div>
+      );
+
+      async function onFinish2(data) {
+        // console.log('ON FINISH @@@', data, this);
+        // alert('ON FINISH');
+        // answers
+        return await api.fetch(`/game/save?id=${params.id}`, {
+          method: 'POST',
+          body: data,
+        })
+        .then((res) => {
+          // location.reload();
+        })
+        .catch((err) => {
+          console.log({ err });
+          alert('Ошибка');
+        });
+      }
 
 
       return {
         component: <Slide
           full
           stretch
-          image="https://pp.vk.me/c636819/v636819936/3474a/g6I0ETjiQ4I.jpg"
+          image="http://race-robotics.com/wp-content/uploads/2016/10/yumi-abb-robot.jpg"
 
           // image={require('./bgs/bg2.jpg')}
         >
           <App
             {...app}
             layoutFinishContent={layoutFinishContent}
+            onFinish={onFinish2}
           />
         </Slide>,
       };

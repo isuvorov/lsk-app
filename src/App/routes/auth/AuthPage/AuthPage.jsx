@@ -74,7 +74,7 @@ export default class AuthPage extends Component {
         name: 'login',
         title: 'Email',
         control: {
-          placeholder: 'Например, utkin@mail.ru',
+          placeholder: 'Например, ivan.ivanov@ru.abb.com',
         },
       },
       {
@@ -86,30 +86,30 @@ export default class AuthPage extends Component {
       },
       {
         name: 'name',
-        title: 'Имя',
+        title: 'ФИО',
         control: {
-          placeholder: 'Например, Василий',
+          placeholder: 'Например, Александр Сергеевич Пушкин',
         },
       },
     ];
     if (type === 'login') {
       fields = fields.slice(0, 2);
-      fields[1].help = (
-        <div style={{ textAlign: 'right' }}>
-          <A href="/auth/recovery">
-            Забыли пароль?
-          </A>
-        </div>
-      );
+      // fields[1].help = (
+      //   <div style={{ textAlign: 'right' }}>
+      //     <A href="/auth/recovery">
+      //       Забыли пароль?
+      //     </A>
+      //   </div>
+      // );
     }
     if (type === 'recovery') {
       fields = fields.slice(0, 1);
     }
-
     return (
       <Slide
         full
-        video="http://skill-branch.ru/video-background.webm"
+        // video="http://skill-branch.ru/video-background.webm"
+        image="http://race-robotics.com/wp-content/uploads/2016/10/yumi-abb-robot.jpg"
         overlay
         // overlay='rgba()'
       >
@@ -166,7 +166,6 @@ export default class AuthPage extends Component {
                           position: 'relative',
                         }}
                       >
-                        {/* <If condition={!status}> */}
                         <span style={{ visibility: !status ? 'visible' : 'hidden' }}>
                           <If condition={type === 'login'}>
                             Войти
@@ -178,7 +177,6 @@ export default class AuthPage extends Component {
                             Сбросить пароль
                           </If>
                         </span>
-                        {/* <div styleName="button-icon-status spin"><Loading /></div> */}
                         <If condition={status}>
                           <div styleName="button-icon-status">
                             <If condition={status === 'wait'}>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import MomentumPage from 'lsk-quiz/Abp/MomentumPage'
+import MomentumPage from 'lsk-quiz/Momentum/MomentumPage'
 // import Slides from 'lsk-general/General/Slides'
 // import Page from 'lsk-general/General/Page'
 import data from './data'

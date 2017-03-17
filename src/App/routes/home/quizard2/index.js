@@ -1,14 +1,14 @@
-// import MomentumPage from 'lsk-quiz/Abp/MomentumPage';
+// import MomentumPage from 'lsk-quiz/Momentum/MomentumPage';
 // import getData from './getData';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
 import Slide from 'lsk-general/General/Slide';
 import Form from 'lsk-general/General/Form';
 
-import Card from 'lsk-quiz/Abp/Card';
-import Button from 'lsk-quiz/Abp/Button';
-import Input from 'lsk-quiz/Abp/Input';
-import Content from 'lsk-quiz/Abp/Content';
+import Card from 'lsk-quiz/Momentum/Card';
+import Button from 'lsk-quiz/Momentum/Button';
+import Input from 'lsk-quiz/Momentum/Input';
+import Content from 'lsk-quiz/Momentum/Content';
 
 import React, { Component } from 'react';
 
@@ -30,7 +30,7 @@ export class Page extends Component { //eslint-disable-line
     return (<Slide
       full
       fixed
-      image="//pp.vk.me/c636819/v636819936/34bbb/Eb4xNlxK7ys.jpg"
+      image="//pp.userapi.com/c636819/v636819936/34bbb/Eb4xNlxK7ys.jpg"
     >
       <Grid>
         <If condition={this.state.page == 2}>

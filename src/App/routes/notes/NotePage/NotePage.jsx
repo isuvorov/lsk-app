@@ -21,7 +21,7 @@ export default class NotePage extends Page {
         styleName='headerSlide'
       >
 
-        <img styleName='avatar' src='https://pp.vk.me/c630220/v630220029/cf5b/XN912Re_pdg.jpg' />
+        <img styleName='avatar' src='https://pp.userapi.com/c630220/v630220029/cf5b/XN912Re_pdg.jpg' />
         <h1 styleName='title'>
           Игорь Суворов
         </h1>

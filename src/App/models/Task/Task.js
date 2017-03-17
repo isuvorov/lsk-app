@@ -9,27 +9,19 @@ export function getSchema(ctx) { // eslint-disable-line
     categoryId: {
       type: String,
     },
-    question: {
-      type: Object,
-    },
-    answers: {
-      type: Array,
-    },
-    title: {
-      type: String,
-    },
+    // question: {
+    //   type: Object,
+    // },
+    // answers: {
+    //   type: Array,
+    // },
+    // title: {
+    //   type: String,
+    // },
   }, {
     strict: false,
   });
 
-  schema.methods.getStartDate = async function () {
-    const { startDate } = this;
-    return startDate;
-  };
-  schema.methods.getImage = async function () {
-    const { coverImage } = this;
-    return `https://hijay-dev.mgbeta.ru${coverImage}`;
-  };
 
   return schema;
 }
@@ -37,5 +29,5 @@ export function getSchema(ctx) { // eslint-disable-line
 
 export default (ctx) => {
   const schema = getSchema(ctx);
-  return ctx.db.model('Task', schema.getMongooseSchema(), 'events');
+  return ctx.db.model('Task', schema.getMongooseSchema(), 'task');
 };

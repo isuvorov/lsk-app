@@ -1,4 +1,4 @@
-// import MomentumPage from 'lsk-quiz/Abp/MomentumPage';
+// import MomentumPage from 'lsk-quiz/Momentum/MomentumPage';
 // import getData from './getData';
 
 export default {

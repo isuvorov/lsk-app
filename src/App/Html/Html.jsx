@@ -1,17 +1,18 @@
 import HtmlBase from 'lego-starter-kit/ReactApp/Html'
+import _ from 'lodash'
 import { Provider } from 'mobx-react'
 import ToastContainer from '../components/ToastContainer'
+import React, {Component} from 'react'
+
 
 require('./bootstrap.g.scss')
 require('./Html.global.css')
-
 export class Root extends HtmlBase.Root {
   render() {
     const stores = this.props.ctx.provider && this.props.ctx.provider.provide() || this.props.ctx.stores || {}
     return <Provider { ...stores } >
       <div>
         {this.props.component}
-        <ToastContainer />
       </div>
     </Provider>
   }
@@ -37,7 +38,7 @@ ${super.renderHead()}
   renderFooter() {
     return `\
 ${super.renderFooter()}
-${require('raw!./footer.html')}
+${__DEV__ ? '' : require('raw!./footer.html')}
 `
   }
 

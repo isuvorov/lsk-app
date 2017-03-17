@@ -14,7 +14,7 @@ export default class App extends ReactApp {
     return require('./routes').default; // eslint-disable-line
   }
 
-  hmrInit() { 
+  hmrInit() {
     if (module.hot) {
       module.hot.accept('./routes', () => {
         this.hmrUpdate();

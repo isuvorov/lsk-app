@@ -13,7 +13,7 @@ export default config.server(baseConfig, {
     enable: true,
   },
   db: {
-    uri: process.env.DB || 'mongodb://s2.mgbeta.ru:10098/hijay-dev',
+    uri: process.env.DB || 'mongodb://s2.mgbeta.ru:10098/momentum',
   },
   jwt: {
     secret: 'momentum123',

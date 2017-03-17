@@ -315,7 +315,7 @@ class Pet {
     });
   }
 
-  save(parasm) {
+  save(paras) {
     return doClientRequest({
       api,
       model: 'Pet',

@@ -1,4 +1,3 @@
-// import HomePage from './HomeWWS'
 import ErrorPage from './ErrorPage';
 import config from '../../config/client';
 
@@ -9,10 +8,6 @@ export default {
       path: '/',
       ...require('./home').default,
     },
-    // {
-    //   path: '/test',
-    //   ...require('./test').default,
-    // },
     {
       path: '/game',
       ...require('./game').default,
@@ -21,10 +16,6 @@ export default {
       path: '/admin',
       ...require('./admin').default,
     },
-    // {
-    //   path: '/notes',
-    //   ...require('./notes').default,
-    // },
     {
       path: '/auth',
       ...require('./auth').default,
@@ -45,6 +36,7 @@ export default {
     try {
       route = await next();
     } catch (err) {
+      console.log({err});
       console.log('err!!!!!!!!!!!!!!!!!!!!!!!!!!!!', err);
       route = {
         title: `!!!Error: ${err}`,

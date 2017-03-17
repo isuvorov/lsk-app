@@ -3,11 +3,23 @@ import App from './App';
 import config from './config/client';
 ready();
 const ctx = { config };
+
+// global.__IE__ = msieversion()
+// console.log('__IE__', __IE__);
+// if (__IE__) {
+window.matchMedia = window.matchMedia || function () {
+  return {
+
+
+    matches: false,
+    addListener() {},
+    removeListener() {},
+  };
+};
+// }
+
 const app = new App(ctx);
+
 app.run().then(() => {
   console.log(`🎃  The client is running [${global.timing()}ms]`);
 });
-
-String.prototype.capitalize = function () {
-  return this.replace(/(?:^|\s)\S/g, (a) => { return a.toUpperCase(); });
-};

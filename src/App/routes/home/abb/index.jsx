@@ -4,10 +4,10 @@ import { autobind } from 'core-decorators';
 import Slide from 'lsk-general/General/Slide';
 import Form from 'lsk-general/General/Form';
 
-import Card from 'lsk-quiz/Abp/Card';
-import Button from 'lsk-quiz/Abp/Button';
-import Input from 'lsk-quiz/Abp/Input';
-import Content from 'lsk-quiz/Abp/Content';
+import Card from 'lsk-quiz/Momentum/Card';
+import Button from 'lsk-quiz/Momentum/Button';
+import Input from 'lsk-quiz/Momentum/Input';
+import Content from 'lsk-quiz/Momentum/Content';
 
 
 export class Page extends Component { //eslint-disable-line
@@ -20,7 +20,7 @@ export class Page extends Component { //eslint-disable-line
         full
         fixed
         overlay="rgba(0,0,0,0.5)"
-        image="https://pp.vk.me/c636819/v636819936/3474a/g6I0ETjiQ4I.jpg"
+        image="http://race-robotics.com/wp-content/uploads/2016/10/yumi-abb-robot.jpg"
         style={{
           color: '#fff',
         }}

@@ -12,6 +12,8 @@ export default {
     'quizard.ru': require('./quizard').default,
     'quizly.ru': require('./quizly').default,
     '*': require('./lico').default,
+    // '*': require('./cbsd').default,
     // '*': require('./quizard').default,
   }),
 };
+//

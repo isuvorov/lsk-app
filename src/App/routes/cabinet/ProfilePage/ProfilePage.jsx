@@ -15,9 +15,11 @@ export default class ProfilePage extends Component { //eslint-disable-line
     return (
         <Grid>
           <Row>
-            <Col md={4} sm={6} xs={12}>
-                {JSON.stringify(user)}
-                {JSON.stringify(this.props.app.auth.user)}
+            <Col md={6} sm={6} xs={12}>
+              <h2>Добро пожаловать {user.name}</h2>
+              <p>Вскоре здесь будет представлена статистика ваших игр</p>
+              {/* {JSON.stringify(user)}
+              {JSON.stringify(this.props.app.auth.user)} */}
             </Col>
 
           </Row>

@@ -1,5 +1,10 @@
-import { doClientRequest, createClientAction, connectAction } from 'universal-model';
+// export default () => {}
 
+// import { createClientActions } from 'universal-model';
+
+// console.log(require('universal-model'));
+// layoutFinishContent
+const createClientActions = require('universal-model').default.createClientActions;
 class TaskClient {
   constructor(json) {
     Object.assign(this, json);
@@ -9,38 +14,35 @@ class TaskClient {
   }
 }
 
-const undesialize = (json) => {
-  return new TaskClient(json);
-}
-
-const arrayUndesialize = (arr) => {
-  return arr.map(json => new TaskClient(json))
-}
-
 export default (ctx) => {
-  console.log('ctx.provider.api', ctx.provider.api);
 
   return {
+    ...createClientActions({
+      api: ctx.provider.api,
+      model: 'task',
+      actions: ['getTasks', 'find'],
+      format: [TaskClient],
+    }),
+    ...createClientActions({
+      api: ctx.provider.api,
+      model: 'task',
+      actions: ['findOne'],
+      format: TaskClient,
+    }),
+  };
 
-  getTasks: createClientAction({
-    api: ctx.provider.api,
-    model: 'task',
-    action: 'getTasks',
-    deserialize: arrayUndesialize, //
-  }),
-  find: createClientAction({
-    api: ctx.provider.api,
-    model: 'task',
-    action: 'find',
-    deserialize: arrayUndesialize, //
-  }),
-  findOne: createClientAction({
-    api: ctx.provider.api,
-    model: 'task',
-    action: 'findOne',
-    deserialize: undesialize, //
-  }),
-  // getTasks() {
-  //   return [1, 2, 3];
-  // },
-}};
+  // return {
+  //   _universal: {
+  //     api: ctx.provider.api,
+  //     model: 'task',
+  //   },
+  //   ...createClientActions({
+  //     action: ['getTasks', 'find'],
+  //     format: [TaskClient],
+  //   }),
+  //   ...createClientActions({
+  //     action: ['findOne'],
+  //     format: TaskClient,
+  //   }),
+  // }
+};

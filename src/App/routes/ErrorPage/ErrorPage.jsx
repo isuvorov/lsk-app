@@ -29,7 +29,6 @@ export default class ErrorPage extends Component {
 
   render() {
     const { type } = this.props;
-    console.log(this.props);
     return (
       <Slide
         full
