@@ -1,0 +1,4 @@
+{
+  "main": "Game.server.js",
+  "browser": "Game.client.js"
+}

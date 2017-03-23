@@ -1249,7 +1249,7 @@ babel-plugin-transform-system-register@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-system-register/-/babel-plugin-transform-system-register-0.0.1.tgz#9dff40390c2763ac518f0b2ad7c5ea4f65a5be25"
 
-babel-polyfill@6.22.0:
+babel-polyfill@6.22.0, babel-polyfill@^6.9.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.22.0.tgz#1ac99ebdcc6ba4db1e2618c387b2084a82154a3b"
   dependencies:
@@ -1257,7 +1257,7 @@ babel-polyfill@6.22.0:
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
 
-babel-polyfill@^6.16.0, babel-polyfill@^6.23.0, babel-polyfill@^6.9.0:
+babel-polyfill@^6.16.0, babel-polyfill@^6.23.0:
   version "6.23.0"
   resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.23.0.tgz#8364ca62df8eafb830499f699177466c3b03499d"
   dependencies:
@@ -1524,21 +1524,14 @@ babel-runtime@6.11.6:
     core-js "^2.4.0"
     regenerator-runtime "^0.9.5"
 
-babel-runtime@6.22.0:
+babel-runtime@6.22.0, babel-runtime@6.x.x, babel-runtime@^6.0.0, babel-runtime@^6.11.6, babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.22.0, babel-runtime@^6.5.0, babel-runtime@^6.9.0, babel-runtime@^6.9.1, babel-runtime@^6.9.2:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.22.0.tgz#1cf8b4ac67c77a4ddb0db2ae1f74de52ac4ca611"
   dependencies:
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
 
-babel-runtime@6.x.x, babel-runtime@^6.0.0, babel-runtime@^6.11.6, babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.22.0, babel-runtime@^6.5.0, babel-runtime@^6.9.0, babel-runtime@^6.9.1, babel-runtime@^6.9.2:
-  version "6.23.0"
-  resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.23.0.tgz#0a9489f144de70efb3ce4300accdb329e2fc543b"
-  dependencies:
-    core-js "^2.4.0"
-    regenerator-runtime "^0.10.0"
-
-babel-template@6.9.0, babel-template@^6.3.0, babel-template@^6.9.0:
+babel-template@6.9.0, babel-template@^6.3.0, babel-template@^6.7.0, babel-template@^6.9.0:
   version "6.9.0"
   resolved "https://registry.yarnpkg.com/babel-template/-/babel-template-6.9.0.tgz#97090fcf6bc15685b4f05be65c0a9438aa7e23e3"
   dependencies:
@@ -1548,7 +1541,7 @@ babel-template@6.9.0, babel-template@^6.3.0, babel-template@^6.9.0:
     babylon "^6.7.0"
     lodash "^4.2.0"
 
-babel-template@^6.16.0, babel-template@^6.22.0, babel-template@^6.23.0, babel-template@^6.7.0:
+babel-template@^6.16.0, babel-template@^6.22.0, babel-template@^6.23.0:
   version "6.23.0"
   resolved "https://registry.yarnpkg.com/babel-template/-/babel-template-6.23.0.tgz#04d4f270adbb3aa704a8143ae26faa529238e638"
   dependencies:
@@ -1572,7 +1565,7 @@ babel-traverse@^6.15.0, babel-traverse@^6.16.0, babel-traverse@^6.22.0, babel-tr
     invariant "^2.2.0"
     lodash "^4.2.0"
 
-babel-types@6.9.0:
+babel-types@6.9.0, babel-types@^6.9.0:
   version "6.9.0"
   resolved "https://registry.yarnpkg.com/babel-types/-/babel-types-6.9.0.tgz#87c9aece3c2947cca1e9f9c03f30cc879224fe3c"
   dependencies:
@@ -1582,7 +1575,7 @@ babel-types@6.9.0:
     lodash "^4.2.0"
     to-fast-properties "^1.0.1"
 
-babel-types@^6.15.0, babel-types@^6.16.0, babel-types@^6.19.0, babel-types@^6.22.0, babel-types@^6.23.0, babel-types@^6.9.0:
+babel-types@^6.15.0, babel-types@^6.16.0, babel-types@^6.19.0, babel-types@^6.22.0, babel-types@^6.23.0:
   version "6.23.0"
   resolved "https://registry.yarnpkg.com/babel-types/-/babel-types-6.23.0.tgz#bb17179d7538bad38cd0c9e115d340f77e7e9acf"
   dependencies:
@@ -2021,8 +2014,8 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.3.0"
 
 caniuse-db@^1.0.30000346, caniuse-db@^1.0.30000631, caniuse-db@^1.0.30000634:
-  version "1.0.30000636"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000636.tgz#08230e9dd26632193f29c9d935185c6f6f9fd9ef"
+  version "1.0.30000637"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000637.tgz#c02430cb29447eb561373bab360d834a2639b42c"
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
@@ -2563,12 +2556,6 @@ d@1:
   dependencies:
     es5-ext "^0.10.9"
 
-d@~0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/d/-/d-0.1.1.tgz#da184c535d18d8ee7ba2aa229b914009fae11309"
-  dependencies:
-    es5-ext "~0.10.2"
-
 damerau-levenshtein@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/damerau-levenshtein/-/damerau-levenshtein-1.0.3.tgz#ae4f4ce0b62acae10ff63a01bb08f652f5213af2"
@@ -2974,7 +2961,7 @@ es-to-primitive@^1.1.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.1"
 
-es5-ext@^0.10.12, es5-ext@^0.10.14, es5-ext@^0.10.9, es5-ext@~0.10.11, es5-ext@~0.10.14, es5-ext@~0.10.2:
+es5-ext@^0.10.12, es5-ext@^0.10.14, es5-ext@^0.10.9, es5-ext@~0.10.14:
   version "0.10.14"
   resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.14.tgz#625bc9ab9cac0f6fb9dc271525823d1800b3d360"
   dependencies:
@@ -2994,21 +2981,21 @@ es6-iterator@2, es6-iterator@^2.0.1, es6-iterator@~2.0.1:
     es6-symbol "^3.1"
 
 es6-map@^0.1.3:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/es6-map/-/es6-map-0.1.4.tgz#a34b147be224773a4d7da8072794cefa3632b897"
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/es6-map/-/es6-map-0.1.5.tgz#9136e0503dcc06a301690f0bb14ff4e364e949f0"
   dependencies:
-    d "~0.1.1"
-    es5-ext "~0.10.11"
-    es6-iterator "2"
-    es6-set "~0.1.3"
-    es6-symbol "~3.1.0"
-    event-emitter "~0.3.4"
+    d "1"
+    es5-ext "~0.10.14"
+    es6-iterator "~2.0.1"
+    es6-set "~0.1.5"
+    es6-symbol "~3.1.1"
+    event-emitter "~0.3.5"
 
 es6-promise@3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-3.2.1.tgz#ec56233868032909207170c39448e24449dd1fc4"
 
-es6-set@~0.1.3:
+es6-set@~0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/es6-set/-/es6-set-0.1.5.tgz#d2b3ec5d4d800ced818db538d28974db0a73ccb1"
   dependencies:
@@ -3022,7 +3009,7 @@ es6-shim@^0.35.1:
   version "0.35.3"
   resolved "https://registry.yarnpkg.com/es6-shim/-/es6-shim-0.35.3.tgz#9bfb7363feffff87a6cdb6cd93e405ec3c4b6f26"
 
-es6-symbol@3.1.1, es6-symbol@^3.1, es6-symbol@^3.1.1, es6-symbol@~3.1, es6-symbol@~3.1.0:
+es6-symbol@3.1.1, es6-symbol@^3.1, es6-symbol@^3.1.1, es6-symbol@~3.1, es6-symbol@~3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/es6-symbol/-/es6-symbol-3.1.1.tgz#bf00ef4fdab6ba1b46ecb7b629b4c7ed5715cc77"
   dependencies:
@@ -3235,7 +3222,7 @@ etag@~1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.0.tgz#6f631aef336d6c46362b51764044ce216be3c051"
 
-event-emitter@~0.3.4, event-emitter@~0.3.5:
+event-emitter@~0.3.5:
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/event-emitter/-/event-emitter-0.3.5.tgz#df8c69eef1647923c7157b9ce83840610b02cc39"
   dependencies:
@@ -3910,13 +3897,9 @@ he@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
 
-highlight.js@9.8.0:
+highlight.js@9.8.0, highlight.js@^9.8.0:
   version "9.8.0"
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.8.0.tgz#38eeef40cd45eaddbec8c9e5238fb7a783a3b685"
-
-highlight.js@^9.8.0:
-  version "9.10.0"
-  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.10.0.tgz#f9f0b14c0be00f0e4fb1e577b749fed9e6f52f55"
 
 history@4.5.1:
   version "4.5.1"
@@ -3969,8 +3952,8 @@ hooks-fixed@1.2.0:
   resolved "https://registry.yarnpkg.com/hooks-fixed/-/hooks-fixed-1.2.0.tgz#0d2772d4d7d685ff9244724a9f0b5b2559aac96b"
 
 hosted-git-info@^2.1.4:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.2.0.tgz#7a0d097863d886c0fabbdcd37bf1758d8becf8a5"
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.3.1.tgz#ac439421605f0beb0ea1349de7d8bb28e50be1dd"
 
 html-attributes@1.1.0:
   version "1.1.0"
@@ -4721,9 +4704,9 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-lego-starter-kit@^1.3.3:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/lego-starter-kit/-/lego-starter-kit-1.3.4.tgz#1d076aa75527f62c754e2279a1762a38dc68df11"
+lego-starter-kit@1.3.7:
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/lego-starter-kit/-/lego-starter-kit-1.3.7.tgz#903f5e1b4bd352a80f04e883294828c05d56fb20"
   dependencies:
     babel-polyfill "6.22.0"
     babel-runtime "6.22.0"
@@ -4748,7 +4731,6 @@ lego-starter-kit@^1.3.3:
     react "15.4.2"
     react-deep-force-update "2.0.1"
     react-dom "15.4.2"
-    react-tunnel "0.1.0"
     socket.io "1.7.2"
     socket.io-as-promised "^1.0.0"
     universal-router "2.0.0"
@@ -5229,9 +5211,9 @@ lsk-general@^0.4.2:
     react-drive-in "^1.7.3"
     react-icons "^2.2.3"
 
-lsk-general@^0.6.1:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/lsk-general/-/lsk-general-0.6.3.tgz#5cc17a28afa51bc38117c2e7ca1d5ed1204118f4"
+lsk-general@^0.6.5:
+  version "0.6.5"
+  resolved "https://registry.yarnpkg.com/lsk-general/-/lsk-general-0.6.5.tgz#56eb87dec15fc077501977a914ef120f0f4397b7"
   dependencies:
     core-decorators "^0.15.0"
     glob-loader "0.3.0"
@@ -5246,9 +5228,9 @@ lsk-general@^0.6.1:
     react-icons "^2.2.3"
     validate.js "^0.11.1"
 
-"lsk-quiz@git+ssh://git@bitbucket.org/mgbeta/lsk-quiz.git#v2.0.6":
+"lsk-quiz@git+ssh://git@bitbucket.org/mgbeta/lsk-quiz.git#v2.0.7":
   version "2.0.3"
-  resolved "git+ssh://git@bitbucket.org/mgbeta/lsk-quiz.git#cf28bfcc6988728c0d96ada1687bcbe7d9c16a25"
+  resolved "git+ssh://git@bitbucket.org/mgbeta/lsk-quiz.git#3222e8185c2644d868799b43fe17204c940ef100"
   dependencies:
     core-decorators "^0.15.0"
     importcss "^1.0.3"
@@ -5320,19 +5302,9 @@ markdown-it-emoji@1.3.0, markdown-it-emoji@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/markdown-it-emoji/-/markdown-it-emoji-1.3.0.tgz#903ae1a9968c3f17d4e142f115d4ec575e56d2cb"
 
-markdown-it@8.1.0:
+markdown-it@8.1.0, markdown-it@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.1.0.tgz#38902d4e7bac2260c073eb67be623211fbb2c2e3"
-  dependencies:
-    argparse "^1.0.7"
-    entities "~1.1.1"
-    linkify-it "^2.0.0"
-    mdurl "^1.0.1"
-    uc.micro "^1.0.3"
-
-markdown-it@^8.1.0:
-  version "8.3.1"
-  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.3.1.tgz#2f4b622948ccdc193d66f3ca2d43125ac4ac7323"
   dependencies:
     argparse "^1.0.7"
     entities "~1.1.1"
@@ -5579,13 +5551,9 @@ ms@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
 
-ms@0.7.2:
+ms@0.7.2, ms@^0.7.1:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
-
-ms@^0.7.1:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.3.tgz#708155a5e44e33f5fd0fc53e81d0d40a91be1fff"
 
 muri@1.2.0:
   version "1.2.0"
@@ -7258,12 +7226,6 @@ react-toastr@2.8.2:
     react-addons-update "^0.14.0 || ^15.0.0"
     react-dom "^0.14.0 || ^15.0.0"
 
-react-tunnel@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/react-tunnel/-/react-tunnel-0.1.0.tgz#5179c1cdef37020caea9eccd8169b65807890385"
-  dependencies:
-    invariant "2.x.x"
-
 react@15.3.2, "react@^0.14.0 || <15.4.0":
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.3.2.tgz#a7bccd2fee8af126b0317e222c28d1d54528d09e"
@@ -8088,8 +8050,8 @@ source-map-support@^0.2.10, source-map-support@~0.2.8:
     source-map "0.1.32"
 
 source-map-support@^0.4.0, source-map-support@^0.4.2:
-  version "0.4.13"
-  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.13.tgz#9782e6f7deb424d5f173327a1879eb46453bdcd4"
+  version "0.4.14"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.14.tgz#9d4463772598b86271b4f523f6c1f4e02a7d6aef"
   dependencies:
     source-map "^0.5.6"
 
@@ -8590,9 +8552,9 @@ uniqs@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/uniqs/-/uniqs-2.0.0.tgz#ffede4b36b25290696e6e165d4a59edb998e6b02"
 
-universal-model@0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/universal-model/-/universal-model-0.1.7.tgz#c05ddee2a214bdba52e0f8d3c62e094a9b92159c"
+universal-model@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/universal-model/-/universal-model-0.1.9.tgz#245e344f8d2a7a6ccb6c2d687b208fecbcfea7a9"
 
 universal-router@2.0.0:
   version "2.0.0"

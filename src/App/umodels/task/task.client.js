@@ -1,16 +1,16 @@
 // export default () => {}
 
-// import { createClientActions } from 'universal-model';
+import { createClientActions } from 'universal-model';
 
 // console.log(require('universal-model'));
 // layoutFinishContent
-const createClientActions = require('universal-model').default.createClientActions;
+// const createClientActions = require('universal-model').default.createClientActions;
 class TaskClient {
   constructor(json) {
     Object.assign(this, json);
   }
   getImage() {
-    return `https://hijay-dev.mgbeta.ru${this.coverImage}`;
+    return `https://static.mgbeta.ru${this.coverImage}`;
   }
 }
 
@@ -26,7 +26,7 @@ export default (ctx) => {
     ...createClientActions({
       api: ctx.provider.api,
       model: 'task',
-      actions: ['findOne'],
+      actions: ['findOne', 'findById'],
       format: TaskClient,
     }),
   };

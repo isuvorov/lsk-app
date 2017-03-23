@@ -7,6 +7,7 @@ export default {
     if (!appStore.auth.isAuth) return { redirect: '/auth' };
 
     return {
+      title: 'Главная',
       component: <CategoryPage
         user={appStore.auth.user}
         title="Академия Продаж"

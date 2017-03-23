@@ -12,7 +12,7 @@ export class Root extends HtmlBase.Root {
     const stores = this.props.ctx.provider && this.props.ctx.provider.provide() || this.props.ctx.stores || {}
     return <Provider { ...stores } >
       <div>
-        {this.props.component}
+        {this.renderChildren()}
       </div>
     </Provider>
   }

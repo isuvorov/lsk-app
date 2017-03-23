@@ -1,8 +1,9 @@
 import ready from 'lego-starter-kit/utils/polyfill';
 import App from './App';
 import config from './config';
+import './date';
 ready();
-global.__IE__ = false
+global.__IE__ = false;
 
 const app = new App({ config });
 app.run().then(() => {

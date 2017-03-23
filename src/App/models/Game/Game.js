@@ -7,6 +7,9 @@ export function getSchema(ctx) { // eslint-disable-line
     userId: {
       type: String,
     },
+    users: {
+      type: Array,
+    },
     categoryId: {
       type: String,
     },
@@ -22,10 +25,26 @@ export function getSchema(ctx) { // eslint-disable-line
     boughtAt: {
       type: Date,
     },
+    startedAt: {
+      type: Date,
+    },
     finishedAt: {
       type: Date,
     },
     cert: {
+      type: Object,
+    },
+    // @@ //
+    raw: {
+      type: Object,
+    },
+    decisions: {
+      type: Object,
+    },
+    events: {
+      type: Array,
+    },
+    results: {
       type: Object,
     },
   });

@@ -62,7 +62,9 @@ export default class AuthStore {
   }
 
   async logout() {
-    cookie.remove('token');
+    // console.log('cookie remove token', __CLIENT__);
+    __CLIENT__ && cookie.remove('token', { path: '/' });
+    // debugger;
     // console.log('logout', cookie.get('token'));
     this.app.api.setAuthToken(null);
     this.user = null;
@@ -77,7 +79,7 @@ export default class AuthStore {
       this.logout();
       return null;
     }
-    cookie.save('token', data.token);
+    cookie.save('token', data.token, { path: '/' });
     this.app.api.setAuthToken(data.token);
 
     if (this.user) {

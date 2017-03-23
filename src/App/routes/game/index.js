@@ -29,13 +29,17 @@ export default {
     }
     const data = await getData(ctx, app, params);
     const game = data.game;
+    // console.log({game});`
+
+    if (!game.tasks || !game.tasks.length) throw '!game.tasks';
+    const platform = game.tasks[0].platform || 'momentum';
 
     const test = {
       tasks: game.tasks,
     };
 
 
-    if (test.tasks && (test.tasks[0].platform === 'quizard' || test.tasks[0].platform === 'lico')) {
+    if (test.tasks && (platform === 'quizard' || platform === 'lico')) {
       const app = {
         userId: user._id,
         game: {
@@ -48,6 +52,9 @@ export default {
             },
           ],
           tasks: game.tasks,
+          results: game.results,
+          startedAt: game.startedAt,
+          finishedAt: game.finishedAt,
           params: {
             answerTime: 30000,
             willStartAtOffset: 7000,
@@ -58,6 +65,7 @@ export default {
           class: 'BotScenario',
           bots: _.sampleSize(bots, 3).map((b, i) => ({
             ...b,
+            avatar: test.tasks[0].platform === 'lico' ? null : b.avatar,
             bot: 'random',
             id: `bot${i}`,
           })),
@@ -66,9 +74,9 @@ export default {
       const layoutFinishContent = (
         <div>
           <h2>Дальнейшие действия</h2>
-          <Button href={`/game/${params.id}`} bsStyle="primary">
-          Пройти еще раз
-        </Button>
+          {/* <Button href={`/game/${params.id}`} bsStyle="primary">
+            Пройти еще раз
+          </Button> */}
         &nbsp;
           <Button href="/" bsStyle="primary">
           Выбрать другую тему
@@ -103,8 +111,7 @@ export default {
         component: <Slide
           full
           stretch
-          image="http://race-robotics.com/wp-content/uploads/2016/10/yumi-abb-robot.jpg"
-
+          image={platform === 'quizard' ? '//pp.userapi.com/c636819/v636819936/34bbb/Eb4xNlxK7ys.jpg' : 'http://race-robotics.com/wp-content/uploads/2016/10/yumi-abb-robot.jpg'}
           // image={require('./bgs/bg2.jpg')}
         >
           <App

@@ -1,4 +1,5 @@
-import ErrorPage from './ErrorPage';
+import ErrorLayout from './ErrorLayout';
+import MainLayout from './MainLayout';
 import config from '../../config/client';
 
 export default {
@@ -24,6 +25,10 @@ export default {
       path: '/cabinet',
       ...require('./cabinet').default,
     },
+    // {
+    //   path: '/notes',
+    //   ...require('./notes').default,
+    // },
     {
       path: '*',
       action() {
@@ -31,21 +36,11 @@ export default {
       },
     },
   ],
-  async action({ next, ctx }) {
-    let route;
-    try {
-      route = await next();
-    } catch (err) {
-      console.log({err});
-      console.log('err!!!!!!!!!!!!!!!!!!!!!!!!!!!!', err);
-      route = {
-        title: `!!!Error: ${err}`,
-        component: <ErrorPage>{`Error: ${err}`}</ErrorPage>,
-      };
-    }
-    if (!route) route = {};
-    route.title = `${route.title || 'Untitled Page'} - ${config.siteTitle}`;
-    route.description = route.description || config.siteTitle;
-    return route;
+  async action({ next, page }) {
+    return page
+    .pushTitle(config.siteTitle || 'Site Name')
+    .layout(MainLayout)
+    .errorLayout(ErrorLayout)
+    .next(next);
   },
 };

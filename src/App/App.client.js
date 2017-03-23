@@ -10,6 +10,13 @@ export default class App extends ReactApp {
     this.umodels = require('./umodels').default(this);
   }
 
+
+  getUmodels() {
+    return {
+      ...require('./umodels').default(this), // eslint-disable-line
+    };
+  }
+
   getUniversalRoutes() {
     return require('./routes').default; // eslint-disable-line
   }
