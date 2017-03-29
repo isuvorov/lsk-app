@@ -17,6 +17,7 @@
     "lsk-admin": "^1.0.8",
     "lsk-general": "0.6.12",
     "lsk-quiz": "git+ssh://git@bitbucket.org/mgbeta/lsk-quiz.git#v2.0.7",
+    "mobx": "^3.1.7",
     "mobx-react": "4.1.0",
     "multer": "^1.3.0",
     "react": "15.3.2",
@@ -31,6 +32,7 @@
     "react-icons": "github:isuvorov/react-icons",
     "react-notifications": "^1.3.0",
     "react-toastr": "2.8.2",
+    "source-map-support": "^0.4.14",
     "universal-model": "0.1.9"
   },
   "devDependencies": {
