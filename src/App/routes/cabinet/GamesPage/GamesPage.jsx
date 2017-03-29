@@ -35,7 +35,7 @@ export default class GamesPage extends Component { //eslint-disable-line
           <tr key={i}>
             <td>
               <If condition={game.createdAt}>
-              Начало: <br />
+                Начало: <br />
                 {Date.toHumanString(game.createdAt)}
               </If>
               <If condition={game.createdAt && game.finishedAt}>
@@ -43,7 +43,7 @@ export default class GamesPage extends Component { //eslint-disable-line
                 <br />
               </If>
               <If condition={game.finishedAt}>
-              Завершение: <br />
+                Завершение: <br />
                 {Date.toHumanString(game.finishedAt)}
               </If>
             </td>
@@ -52,9 +52,8 @@ export default class GamesPage extends Component { //eslint-disable-line
             </td>
           </tr>
         );
-      } else {
-        return null;
       }
+      return null;
     }
     const result = gameRaw.results.users[0];
     return (
