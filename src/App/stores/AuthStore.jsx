@@ -1,96 +1,161 @@
-import { observable } from 'mobx';
+import { computed, action } from 'mobx';
 import cookie from 'react-cookie';
-import { autobind } from 'core-decorators';
-import _ from 'lodash';
-import User from './User';
 
 export default class AuthStore {
-  constructor(app) {
-    this.app = app;
+
+  token = null;
+  promise = null;
+
+  constructor(store, data) {
+    this.store = store;
+    this.data = data;
+    this.authenticate();
   }
 
-  @observable token = null
-  @observable user = null
-  @observable isAuth = null
+  authenticate() {
+    if (__CLIENT__) return this.authOnClient();
+    if (__SERVER__) return this.authOnServer();
+    return null;
+  }
 
-
-  @autobind
-  init(data) {
-    // console.log('AuthStore.init', data);
-    if (data.token === 'undefined' || !data.token || !data.user || !data.user._id) {
+  authOnServer() {
+    if (!this.isErrorJWT && this.isToken && this.isUser) {
+      this.setToken(this.data.state.token);
+      this.updateUser(this.data.state.user);
+    } else {
       this.logout();
-      return null;
     }
-    this.save(data);
-    // const token = cookie.load('authToken')
-    // if (token) {
-    //   this.promise = this.login({token}).catch(err => {
-    //     console.log('AuthStore.init', err);
-    //     return {}
-    //   })
-    // } else {
-    //   this.promise = Promise.resolve()
-    // }
-    // return {}
   }
 
+  authOnClient() {
+    if (this.isToken && this.isUser) {
+      this.setToken(cookie.load('token'));
+      this.updateUser(this.data.state.user);
+    } else {
+      this.logout();
+    }
+  }
 
-  promise = Promise.resolve()
   isAuthAsync() {
-    return this.promise.then(() => !!this.isAuth)
-    .catch(() => !!this.isAuth);
+    if (this.isToken) {
+      return this.promise
+        .then(() => !!this.isAuth)
+        .catch(() => !!this.isAuth) || false;
+    }
+    return false;
   }
 
-  async signup(data) {
-    this.promise = this.app.api.authSignup(data);
-    const res = await this.promise;
-    await this.save(res);
-    return res;
-  }
-
-  async login(data) {
-    this.promise = this.app.api.authLogin(data);
-    const res = await this.promise;
-    await this.save(res);
-    return res;
-  }
-
-  async recovery(data) {
-    this.promise = this.app.api.authRecovery(data);
-    const res = await this.promise;
-    return res;
+  async checkAuthData() {
+    if (!this.isToken || !this.isUser) {
+      await this.logout();
+      return false;
+    }
+    return true;
   }
 
   async logout() {
-    // console.log('cookie remove token', __CLIENT__);
-    __CLIENT__ && cookie.remove('token', { path: '/' });
-    // debugger;
-    // console.log('logout', cookie.get('token'));
-    this.app.api.setAuthToken(null);
-    this.user = null;
-    this.token = null;
-    this.isAuth = null;
-    this.app.update();
+    await this.unsetToken();
+    this.updateUser();
   }
 
-  async save(data) {
-    // console.log('Auth.save', data);
-    if (data.token === 'undefined' || !data.token || !data.user || !data.user._id) {
-      this.logout();
-      return null;
-    }
-    cookie.save('token', data.token, { path: '/' });
-    this.app.api.setAuthToken(data.token);
+  async unsetToken() {
+    await this.store.api.setAuthToken(null);
+    this.data.state.token = null;
+    cookie.remove('token', { path: '/' });
+    this.token = null;
+  }
 
-    if (this.user) {
-      this.user.set(data.user);
-    } else {
-      this.user = new User(data.user);
-    }
+  async setToken(token) {
+    this.store.api.setAuthToken(token);
+    this.data.state.token = token;
+    cookie.save('token', token, { path: '/' });
+    this.token = token;
+  }
 
-    this.token = data.token;
-    this.isAuth = true;
-    this.app.update();
+  async writeResponse() {
+    this.store.log.info('[Y] promise', this.promise);
+    const res = await this.promise;
+    this.store.log.info('[Y] res', res);
+    this.store.ui.status(res.code);
+    await this.setToken(res.token);
+    await this.updateUser(res.user);
+    return res;
+  }
+
+  async init(data) {
+    this.promise = this.store.api.getUser(data);
+    const user = await this.promise;
+    this.store.user.update(user);
+  }
+
+  @action
+  async signup(data) {
+    this.store.ui.status('wait');
+    this.promise = this.store.api.authSignup(data);
+    await this.writeResponse();
+  }
+
+  @action
+  async login(data) {
+    this.store.ui.status('wait');
+    this.promise = this.store.api.authLogin(data);
+    const res = await this.writeResponse();
+    return res;
+  }
+
+  @action
+  async recovery(data) {
+    this.store.ui.status('wait');
+    this.promise = this.store.api.authRecovery(data);
+    const res = await this.promise;
+    this.store.ui.status(res.code);
+  }
+
+  @action
+  authPassport(provider) {
+    window.location = `/api/v1/auth/${provider}`;
+  }
+
+  @action
+  async signupPassport(params) {
+    this.store.log.info('signupPassport');
+    this.store.ui.status('wait');
+    this.promise = this.store.api.authSignupPassport(params);
+    await this.writeResponse();
+  }
+
+  @action
+  async loginPassport(params) {
+    if (__CLIENT__) {
+      this.store.log.info('loginPassport');
+      this.store.ui.status('wait');
+      this.promise = this.store.api.authLoginPassport(params);
+      await this.writeResponse();
+      return true;
+    }
+  }
+
+  async updateUser(data = null) {
+    this.data.state.user = data;
+    if (this.store.user) {
+      this.store.user.update(data);
+    }
+  }
+
+  @computed get isAuth() {
+    return !!this.store.user._id;
+  }
+
+  @computed get isErrorJWT() {
+    return this.data.req._errJwt;
+  }
+
+  @computed get isToken() {
+    return !!this.data.state.token || !!cookie.load('token');
+  }
+
+  @computed get isUser() {
+    return this.data.state.user && this.data.state.user._id;
   }
 
 }

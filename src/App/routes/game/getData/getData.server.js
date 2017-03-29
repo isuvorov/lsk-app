@@ -1,15 +1,15 @@
 
-export default async (ctx, app, params) => {
-  if (!ctx.rootState) ctx.rootState = {}
+export default async ({ uapp, app, params }) => {
+  if (!uapp.rootState) uapp.rootState = {};
 
-  const { Game } = app.models
+  const { Game } = app.models;
 
-  const game = await Game.findById(params.id)
+  const game = await Game.findById(params.id);
   const data = {
     game,
-  }
+  };
 
-  ctx.rootState.pageData = data
+  uapp.rootState.pageData = data;
 
-  return ctx.rootState.pageData
-}
+  return uapp.rootState.pageData;
+};

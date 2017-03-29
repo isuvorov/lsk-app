@@ -1,34 +1,40 @@
 import ErrorLayout from './ErrorLayout';
 import MainLayout from './MainLayout';
-import config from '../../config/client';
 
 export default {
   path: '/',
+  async action({ next, uapp, page }) {
+    const config = uapp.rootState.config; // @TODO: потом сделать uapp.config
+    return page
+    .meta({
+      title: config.siteTitle,
+      description: config.siteDescription,
+    })
+    .layout(MainLayout)
+    .errorLayout(ErrorLayout)
+    .next(next);
+  },
   children: [
     {
       path: '/',
       ...require('./home').default,
     },
     {
-      path: '/game',
-      ...require('./game').default,
-    },
-    {
-      path: '/admin',
-      ...require('./admin').default,
-    },
-    {
       path: '/auth',
       ...require('./auth').default,
+    },
+    {
+      path: '/game',
+      ...require('./game').default,
     },
     {
       path: '/cabinet',
       ...require('./cabinet').default,
     },
-    // {
-    //   path: '/notes',
-    //   ...require('./notes').default,
-    // },
+    {
+      path: '/admin',
+      ...require('./admin').default,
+    },
     {
       path: '*',
       action() {
@@ -36,11 +42,4 @@ export default {
       },
     },
   ],
-  async action({ next, page }) {
-    return page
-    .pushTitle(config.siteTitle || 'Site Name')
-    .layout(MainLayout)
-    .errorLayout(ErrorLayout)
-    .next(next);
-  },
 };

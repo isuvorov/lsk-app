@@ -1,29 +1,18 @@
-
 import React, { Component } from 'react';
-// import importcss from 'importcss';
-// import { autobind } from 'core-decorators';
-// import { inject } from 'mobx-react';
 import {
   Card,
   CardBlock,
-  CardFooter,
   CardTitle,
   CardText,
-} from 'reactstrap';
-import {
   Grid,
   Row,
   Col,
   Button,
 } from 'react-bootstrap';
 
-import Loading from 'react-icons/lib/md/refresh';
-import Error from 'react-icons/lib/md/clear';
-import Check from 'react-icons/lib/md/check';
-
-import Slide from 'lsk-general/General/Slide';
+import Slide from './Slide';
 import Link from 'lsk-general/General/Link';
-import NavBar from './_layouts/NavBar';
+import Navbar from './Navbar';
 
 // @inject('app')
 export default class ErrorLayout extends Component {
@@ -32,12 +21,8 @@ export default class ErrorLayout extends Component {
     const { type } = this.props;
     return (
       <div>
-        <NavBar />
-        <Slide
-          full
-          video="http://skill-branch.ru/video-background.webm"
-          overlay
-        >
+        <Navbar />
+        <Slide>
           <Grid>
             <Row>
               <Col md={4} mdOffset={4}>

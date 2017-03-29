@@ -1,48 +1,63 @@
-import { observable } from 'mobx';
-import AuthStore from './AuthStore';
 import ApiClient from '../api/api.client';
-import cookie from 'react-cookie';
-import config from '../../config/client'; // TODO fix
 
-class AppStore {
-  user = null;
-  api = null;
-  config = config;
+import AuthStore from './AuthStore';
+import UserStore from './UserStore';
+import UIStore from './UIStore';
 
-  @observable updateCount = 0;
-  update() {
-    this.updateCount += 1;
-    // console.log('this.updateCount', this.updateCount);
+// Prototype of Uapp class
+export default class AppStore {
+
+  ui = new UIStore();
+  static v = 2;
+  constructor(params) {
+    // Object.assing(this, params)
+    const { rootState: state, req = {}, app } = params;
+    this._app = app;
+    this.config = state.config;
+    this.rootState = state;
+    this.api = new ApiClient({ base: state.config.api.base });
+    this.auth = new AuthStore(this, { state, req });
+    this.user = new UserStore(this, state.user);
+    this.init();
   }
 
-  constructor(rootState, req) {
-    this.api = new ApiClient({ base: '/api/v1' });
-    this.auth = new AuthStore(this);
-    // console.log({req, rootState});
+  async init() {
+    this.models = this.getModels();
+    this.stores = this.getStores();
+    this.log = this.getLogger();
+  }
 
-    if (__SERVER__) {
-      if (!req._errJwt && req.user && req.user._id) {
-        this.auth.init({
-          token: req.token,
-          user: req.user,
-        });
-      }
-    } else {
-      this.auth.init({
-        token: cookie.load('token'),
-        user: rootState.user,
-      });
-    }
+  getLogger() {
+    // console.log('bunyan log', this._app.log)
+    return {
+      info: (...args) => { console.log('[LOGGER]', ...args); },
+      error: (...args) => { console.error('[ERROR]', ...args); },
+    };
+  }
+
+  getStores() {
+    return require('./stores').default(this); // eslint-disable-line
+  }
+
+  getModels() {
+    return require('./models').default(this); // eslint-disable-line
+  }
+
+  setData({ page, uapp }) {
+    this.page = page;
+    this.uapp = uapp;
   }
 
   provide() {
     return {
       app: this,
+      log: this.log,
       auth: this.auth,
-      user: this.auth && this.auth.user,
       api: this.api,
+      user: this.user,
+      config: this.config,
+      page: this.page,
     };
   }
-}
 
-export default AppStore;
+}

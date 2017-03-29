@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import Slide from 'lsk-general/General/Slide';
+import Link from 'lsk-general/General/Link';
 
-import Card from 'lsk-quiz/Momentum/Card';
+import { Card, CardImg, CardText, CardBlock,
+  CardTitle, CardSubtitle, Button } from 'react-bootstrap';
+// import Card from 'lsk-quiz/Momentum/Card';
 import Content from 'lsk-quiz/Momentum/Content';
-import NavBar from '../_layouts/NavBar';
+import NavBar from '../NavBar';
 
 
 export default class CategoryPage extends Component { //eslint-disable-line
@@ -31,14 +34,26 @@ export default class CategoryPage extends Component { //eslint-disable-line
                   {this.props.subtitle}
                 </Content.Subtitle>
               </div>
-
               <Row style={{ color: '#333' }}>
-                {(this.props.categories || []).map(category => (
-                  <Col md={4}>
-                    <Card
-                      wrap
-                      {...category}
-                    />
+                {(this.props.categories || []).map((category,i) => (
+                  <Col md={4} key={i}>
+                    <Card>
+                      <CardImg top width="100%" src={category.image} alt={category.title} />
+                      <CardBlock>
+                        <CardTitle>
+                          {category.title}
+                        </CardTitle>
+                        <CardSubtitle>
+                          {category.subtitle}
+                        </CardSubtitle>
+                        <CardText>
+                          {category.text || <br/>}
+                        </CardText>
+                        {/* <Link href={category.link}> */}
+                          <Button href={category.link}>Пройти тест</Button>
+                        {/* </Link> */}
+                      </CardBlock>
+                    </Card>
                   </Col>
                   ))}
               </Row>

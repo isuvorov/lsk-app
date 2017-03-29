@@ -1,118 +1,172 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import importcss from 'importcss';
 import { autobind } from 'core-decorators';
-import { inject } from 'mobx-react';
-import sample from 'lodash/sample';
+import { inject, observer } from 'mobx-react';
+import cx from 'classnames';
 import {
   Card,
   CardBlock,
   CardFooter,
   CardTitle,
   CardText,
-} from 'reactstrap';
-import {
   Grid,
   Row,
   Col,
   Button,
+  ButtonGroup,
 } from 'react-bootstrap';
-import Email from 'react-icons/lib/fa/envelope';
-import Lock from 'react-icons/lib/fa/lock';
-
-import VKontakte from 'react-icons/lib/fa/vk';
-import Odnoklassniki from 'react-icons/lib/fa/odnoklassniki';
-import Facebook from 'react-icons/lib/fa/facebook';
-import Twitter from 'react-icons/lib/fa/twitter';
-import Twitch from 'react-icons/lib/fa/twitch';
-import Tumblr from 'react-icons/lib/fa/tumblr';
-import Instagram from 'react-icons/lib/fa/instagram';
+import { get } from 'lodash';
 
 import Loading from 'react-icons/lib/md/refresh';
 import Error from 'react-icons/lib/md/clear';
 import Check from 'react-icons/lib/md/check';
 
 import Component from 'lsk-general/General/Component';
-import Slide from 'lsk-general/General/Slide';
+import Slide from '../../Slide';
 import Link from 'lsk-general/General/Link';
 import A from 'lsk-general/General/A';
 import Form from 'lsk-general/General/Form';
 
-@inject('app')
+import SocialButtons, { SocialButton, buttons } from './SocialButtons';
+// const infoFields = [
+//   {
+//     name: 'profile.firstName',
+//     title: 'Имя',
+//     control: {
+//       placeholder: 'Например, Василий',
+//     },
+//   },
+//   {
+//     name: 'profile.lastName',
+//     title: 'Фамилия',
+//     control: {
+//       placeholder: 'Например, Пушкин',
+//     },
+//   },
+//   {
+//     name: 'profile.middleName',
+//     title: 'Отчество',
+//     control: {
+//       placeholder: 'Например, Александрович',
+//     },
+//   },
+// ];
+
+@inject('auth', 'config') @observer
 @importcss(require('./AuthPage.css'))
 export default class AuthPage extends Component {
 
+  static defaultProps = {
+    type: 'login',
+    passport: {},
+  }
+
+  static propTypes = {
+    type: PropTypes.string,
+    passport: PropTypes.object,
+    ui: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
+    config: PropTypes.object.isRequired,
+  }
+
+  getFields(type) {
+    const login = {
+      name: 'login',
+      title: 'Email',
+      control: {
+        placeholder: 'Ваш Email',
+      },
+    };
+    const password = {
+      name: 'password',
+      title: 'Пароль',
+      control: {
+        type: 'password',
+        placeholder: 'Ваш пароль',
+      },
+    };
+
+    if (type === 'recovery') {
+      return [login];
+    }
+
+    if (type === 'login') {
+      return [
+        login,
+        {
+          ...password,
+          help: (
+            <div style={{ textAlign: 'right' }}>
+              <A href="/auth/recovery">
+                Забыли пароль?
+              </A>
+            </div>
+          ),
+        },
+      ];
+    }
+
+    const config = this.props.config;
+    const infoFields = config.auth.signup
+    .map(name => ({ name, ...config.auth.profile[name] }))
+    .filter(f => f)
+    .map(field => ({
+      name: `profile.${field.name}`,
+      title: field.title,
+      control: field.control || {},
+    }));
+
+    if (type === 'signupPassport') {
+      return [
+        ...infoFields,
+      ].map(field => ({
+        ...field,
+        value: get(this.props.passport, field.name),
+      }));
+    }
+
+    return [
+      login,
+      password,
+      ...infoFields,
+    ];
+  }
+
   @autobind
   async handleSubmit(data) {
-    const auth = this.props.app.auth;
-    // try {
-    if (this.props.type === 'login') {
-      await auth.login(data);
-      this.redirect('/');
+    const { type, auth, query } = this.props;
+    if (type === 'login') {
+      const res = await auth.login(data);
+      if (res.message === 'ok') {
+        this.redirect('/');
+      }
     }
-    if (this.props.type === 'signup') {
-      const res = await auth.signup(data);
-      this.redirect('/');
+    if (type === 'signupPassport') {
+      await auth.signupPassport({ ...data, p: query.p }).then(() => {
+        this.redirect('/');
+      });
     }
-    if (this.props.type === 'recovery') {
-      const res = await auth.recovery(data);
-      global.toast({
+    if (type === 'signup') {
+      await auth.signup(data).then(() => {
+        this.redirect('/');
+      });
+    }
+    if (type === 'recovery') {
+      await auth.recovery(data);
+      global.toast && global.toast({
         type: 'success',
         title: 'Письмо с восстановлением пароля отправлено на почту.',
       });
     }
-    // }
-    // console.log('handleSubmit', data);
-    // global.toast('asdasda');
   }
 
+
   render() {
-    let { type } = this.props;
-    if (!type) type = 'login';
-    const status = null;
-    let fields = [
-      {
-        name: 'login',
-        title: 'Email',
-        control: {
-          placeholder: 'Например, ivan.ivanov@ru.abb.com',
-        },
-      },
-      {
-        name: 'password',
-        title: 'Пароль',
-        control: {
-          type: 'password',
-        },
-      },
-      {
-        name: 'name',
-        title: 'ФИО',
-        control: {
-          placeholder: 'Например, Александр Сергеевич Пушкин',
-        },
-      },
-    ];
-    if (type === 'login') {
-      fields = fields.slice(0, 2);
-      // fields[1].help = (
-      //   <div style={{ textAlign: 'right' }}>
-      //     <A href="/auth/recovery">
-      //       Забыли пароль?
-      //     </A>
-      //   </div>
-      // );
-    }
-    if (type === 'recovery') {
-      fields = fields.slice(0, 1);
-    }
+    const { type, auth, config, passport } = this.props;
+    const status = null;// this.props.ui.statusRequest;
+    const fields = this.getFields(type);
     return (
-      <Slide
-        full
-        // video="http://skill-branch.ru/video-background.webm"
-        image="http://race-robotics.com/wp-content/uploads/2016/10/yumi-abb-robot.jpg"
-        overlay
-        // overlay='rgba()'
-      >
+      <Slide>
         <Grid>
           <Row>
             <Col md={4} mdOffset={4}>
@@ -122,13 +176,19 @@ export default class AuthPage extends Component {
                     <If condition={type === 'login'}>
                       Вход
                     </If>
-                    <If condition={type === 'signup'}>
-                      Регистрация
+                    <If condition={['signupPassport', 'signup'].includes(type)}>
+                      {`Регистрация${type === 'signupPassport' ? ` через ${buttons[passport.provider].title}` : ''}`}
                     </If>
                     <If condition={type === 'recovery'}>
                       Восстановить пароль
                     </If>
                   </CardTitle>
+                  <If condition={type == 'signupPassport'}>
+                    <SocialButton name={passport.provider} />
+                    <div style={{ textAlign: 'center' }}>
+                      <img src={passport.profile.avatar} style={{ borderRadius: '50%' }} />
+                    </div>
+                  </If>
                   <Form
                     fields={fields}
                     validators={{
@@ -149,14 +209,23 @@ export default class AuthPage extends Component {
                           message: 'Пароль должен быть больше 6 символов.',
                         },
                       },
-                      name: {
+                      'profile.firstName': {
+                        presence: {
+                          message: 'Поле не должно быть пустым',
+                        },
+                      },
+                      'profile.lastName': {
+                        presence: {
+                          message: 'Поле не должно быть пустым',
+                        },
+                      },
+                      'profile.middleName': {
                         presence: {
                           message: 'Поле не должно быть пустым',
                         },
                       },
                     }}
                     onSubmit={this.handleSubmit}
-                    // onError={(e) => console.log(e)}
                     submitButton={(
                       <Button
                         type="submit"
@@ -166,11 +235,11 @@ export default class AuthPage extends Component {
                           position: 'relative',
                         }}
                       >
-                        <span style={{ visibility: !status ? 'visible' : 'hidden' }}>
+                        <span style={{ display: !status ? 'block' : 'none' }}>
                           <If condition={type === 'login'}>
                             Войти
                           </If>
-                          <If condition={type === 'signup'}>
+                          <If condition={['signupPassport', 'signup'].includes(type)}>
                             Создать аккаунт
                           </If>
                           <If condition={type === 'recovery'}>
@@ -178,7 +247,12 @@ export default class AuthPage extends Component {
                           </If>
                         </span>
                         <If condition={status}>
-                          <div styleName="button-icon-status">
+                          <div
+                            className={cx({
+                              'button-icon-status': true,
+                              spin: status === 'wait',
+                            })}
+                          >
                             <If condition={status === 'wait'}>
                               <Loading />
                             </If>
@@ -194,21 +268,10 @@ export default class AuthPage extends Component {
                     )}
                   />
                 </CardBlock>
-
-                {/* <CardFooter className="text-xs-center">
-                  <ButtonGroup>
-                    <Button styleName='btn-social is-vkontakte'><VKontakte /></Button>
-                    <Button styleName='btn-social is-odnoklassniki'><Odnoklassniki /></Button>
-                    <Button styleName='btn-social is-facebook'><Facebook /></Button>
-                    <Button styleName='btn-social is-twitter'><Twitter /></Button>
-                    <Button styleName='btn-social is-twitch'><Twitch /></Button>
-                    <Button styleName='btn-social is-tumblr'><Tumblr /></Button>
-                    <Button styleName='btn-social is-instagram'><Instagram /></Button>
-                  </ButtonGroup>
-                </CardFooter> */}
+                <CardFooter className="text-xs-center">
+                  <SocialButtons auth={auth} config={config} />
+                </CardFooter>
               </Card>
-
-
               <If condition={type === 'signup'}>
                 <Card>
                   <CardBlock className="text-xs-center" style={{ textAlign: 'center' }}>

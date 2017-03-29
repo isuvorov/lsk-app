@@ -4,7 +4,6 @@ import Slide from 'lsk-general/General/Slide'
 import Slides from 'lsk-general/General/Slides'
 import InnerHtml from 'lsk-general/General/InnerHtml'
 import importcss from 'importcss'
-// import { Button } from 'reactstrap';
 
 // class SomePage
 

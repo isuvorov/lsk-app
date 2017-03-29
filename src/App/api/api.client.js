@@ -1,5 +1,5 @@
-import ApiClientBase from 'lego-starter-kit/CoreApp/api/api.client'
-import _ from 'lodash'
+import ApiClientBase from 'lego-starter-kit/CoreApp/api/api.client';
+import _ from 'lodash';
 
 export default class ApiClient extends ApiClientBase {
   throwError({ err }) {
@@ -10,73 +10,91 @@ export default class ApiClient extends ApiClientBase {
     const title = err && err.statusText || 'Ошибка';
     const text = err && err.data && err.data.message || error.message;
 
-    global.toast({
+    global.toast && global.toast({
       title,
       text,
     });
-
-    // throw error;
   }
 
-  // async authSignup(params) {
-  //   const body = {
-  //     first_name: params.name,
-  //     email: params.email,
-  //     password: params.password,
-  //   };
-  //   const res = await this.fetch('/users/registration/post/', {
-  //     method: 'POST',
-  //     body,
-  //   });
-  //   return this.authLogin({
-  //     token: res.token,
-  //   });
-  // }
-  //
-  // async authLogin(params) {
-  //   let token;
-  //   if (!params.token) {
-  //     const body = {
-  //       username: params.email,
-  //       password: params.password,
-  //     };
-  //     // console.log({body});
-  //     const data = await this.fetch('/users/token/post/', {
-  //       method: 'POST',
-  //       body,
-  //     });
-  //     token = data.token;
-  //   } else {
-  //     token = params.token;
-  //   }
-  //
-  //   // const data2 = await this.fetch('/users/login/post/', {
-  //   //   method: 'POST',
-  //   //   headers: {
-  //   //     Authorization:`Token ${token}`
-  //   //   },
-  //   //   body,
-  //   // })
-  //   // console.log({data2});
-  //   //
-  //   const user = await this.fetch('/users/me/', {
-  //     method: 'GET',
-  //     headers: {
-  //       Authorization: `Token ${token}`,
-  //     },
-  //   });
-  //   return {
-  //     token,
-  //     user,
-  //   };
-  //   // console.log({data2});
-  //
-  //   // data.token =
-  //   // const res = await this.fetch('/users/registration/post/', {
-  //   //   method: 'POST',
-  //   //   body,
-  //   // })
-  //   // const json = await res.json()
-  //   // return json
-  // }
+  async getUser(body) {
+    const res = await this.fetch('/user/get', {
+      method: 'POST',
+      body,
+    });
+    return res.data;
+  }
+
+  async userEdit(body) {
+    const res = await this.fetch('/user/edit', {
+      method: 'POST',
+      body,
+    });
+    return res;
+  }
+
+  async authSignupPassport(data) {
+    const res = await this.fetch('/auth/social/signup', {
+      method: 'POST',
+      body: data,
+    });
+    return res.data;
+  }
+
+  async authLoginPassport(data) {
+    const res = await this.fetch('/auth/social/login', {
+      method: 'POST',
+      body: data,
+    })
+    return res.data
+  }
+
+  async signupSocial(data) {
+    let url = `/auth/${data.provider}/signup?`;
+    if (data) {
+      const keys = Object.keys(data);
+      keys.map((key) => {
+        url += `${key}=`;
+        url += data[key];
+        url += '&';
+      });
+    }
+    return this.fetch(url, {
+      method: 'GET',
+    });
+  }
+
+  async loginSocial(data) {
+    let url = `/auth/${data.provider}/login?`;
+    if (data) {
+      const keys = Object.keys(data);
+      keys.map((key) => {
+        url += `${key}=`;
+        url += data[key];
+        url += '&';
+      });
+    }
+    return this.fetch(url, {
+      method: 'GET',
+    });
+  }
+
+  async getPassportByToken(token) {
+    const url = `/passport?p=${token}`;
+    return this.fetch(url, {
+      method: 'GET',
+    });
+  }
+
+  async uploadImage(body) {
+    console.log(body);
+    const res = await this.fetch('/upload', {
+      method: 'POST',
+      headers: {
+        'Content-Type': '!',
+      },
+      body,
+    });
+    return res.data;
+  }
+
 }

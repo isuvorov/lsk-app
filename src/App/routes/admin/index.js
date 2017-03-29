@@ -1,29 +1,44 @@
-import GamesPage from '../cabinet/GamesPage';
+/* eslint react/jsx-filename-extension: 0 */
+import React from 'react';
+import CabinetLayout from '../cabinet/CabinetLayout';
+
+import Dashboard from './Dashboard';
+import Profile from './Profile';
+import Users from './Users';
+
 
 export default {
   action({ next, page }) {
     return page
-      .isUserRole('admin')
-      .pushTitle('Admin')
-      .next(next);
+    .meta({
+      title: 'Админ Панель',
+      url: '/admin',
+    })
+    .layout(CabinetLayout)
+    .next(next);
   },
   children: [
     {
       path: '/',
-      async action({ uapp, page }) {
-        const { Game } = uapp.umodels;
-        const games = await Game.find();
+      async action({ page }) {
         return page
-          .pushTitle('All games')
-          .component([GamesPage, { games, showAll: true }]);
+          .meta({
+            title: 'Дешборд',
+            url: '/admin',
+          })
+          .component(Dashboard, { page });
       },
     },
     {
-      path: '*',
-      action() {
-        throw 'Not found in cabinet';
+      path: '/users',
+      async action({ page }) {
+        return page
+          .meta({
+            title: 'Пользователи',
+            url: '/admin/users',
+          })
+          .component(Users, { page });
       },
     },
   ],
-
 };

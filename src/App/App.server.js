@@ -1,7 +1,8 @@
 import ReactApp from 'lego-starter-kit/ReactApp'; // eslint-disable-line
 import _ from 'lodash';
-import getApi from './api';
-import getDocs from './api/api.docs';
+
+import getApi from './api/v1';
+import getDocs from './api/v1/v1.docs';
 import routes from './routes';
 import assets from './assets'; // eslint-disable-line
 
@@ -41,12 +42,11 @@ export default class App extends ReactApp {
   }
 
   getStatics() {
-    return {
-      ...super.getStatics(),
-      ...{
-        '/': `${__dirname}/../src/public`,
-      },
-    };
+    const statics = super.getStatics();
+    if (__DEV__) {
+      statics['/storage'] = `${__dirname}/../storage`
+    }
+    return statics;
   }
 
 
